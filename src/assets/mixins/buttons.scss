@@ -1,0 +1,25 @@
+.button {
+  border-radius: 40px;
+  padding: 12px 24px;
+  box-sizing: border-box;
+  border: none;
+  &--primary {
+    @extend .button;
+    background-color: var(--primary);
+    color: var(--secondary);
+    &:hover {
+      background-color: var(--secondary);
+      color: var(--primary);
+    }
+  }
+  &--secondary {
+    @extend .button;
+    background-color: var(--secondary);
+    color: var(--primary);
+  }
+  &--disabled {
+    @extend .button;
+    background-color: var(--disabled);
+    color: var(--secondary);
+  }
+}
