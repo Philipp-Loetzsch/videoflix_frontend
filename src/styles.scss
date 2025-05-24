@@ -5,12 +5,17 @@
 @import "./assets/templates/buttons.scss";
 
 * {
+  font-size: 18px;
   color: var(--secondary);
    a{
         text-decoration: none;
         &:hover{
             text-decoration: underline;
         }
+    }
+    h1{
+        font-size: 48px;
+        margin: 0;
     }
 }
 html {
@@ -51,5 +56,6 @@ app-main-site {
     flex: 1 1 auto;
     @include arrangement($fd: column);
     z-index: 9;
+    gap: 1rem;
   }
 }
