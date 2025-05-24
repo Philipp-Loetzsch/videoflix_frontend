@@ -1,12 +1,55 @@
-@import "./assets/colors/colors.scss";
+@import "./assets/templates/variables.scss";
 @import "./assets/fonts/fonts.scss";
+@import "./assets/templates/mixins.scss";
+@import "./assets/templates/forms.scss";
+@import "./assets/templates/buttons.scss";
 
-
-html{
-    margin: 0;
+* {
+  color: var(--secondary);
+   a{
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+html {
+  margin: 0;
 }
 
-body{
-    margin: 0;
-    font-family: "DM sans", Arial, Helvetica, sans-serif;
+body {
+  margin: 0;
+  font-family: "DM sans", Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+app-main-site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: var(--max-screen-witdth);
+  width: 100vw;
+  background-image: url("/img/startsite.jpg");
+  background-position: fixed;
+  background-size: 100%;
+  top: 0;
+  left: 0;
+  &::before {
+    content: "";
+    background-color: #1c1a20cc;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  > app-landing-page {
+    flex: 1 1 auto;
+    @include arrangement($fd: column);
+    z-index: 9;
+  }
 }

@@ -3,6 +3,11 @@
   padding: 12px 24px;
   box-sizing: border-box;
   border: none;
+  font-size: 18px;
+  font-weight: 700;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
   &--primary {
     @extend .button;
     background-color: var(--primary);
