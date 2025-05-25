@@ -1,10 +1,12 @@
-<header>
-    <a href="#"><img src="/img/Logo.svg" alt="logo"></a>
+<div class="main-content" [ngClass]="backgroundClass">
+  <header>
+    <a href="#"><img src="/img/Logo.svg" alt="logo" /></a>
     <button class="button--primary">Log In</button>
-</header>
-<router-outlet></router-outlet>
+  </header>
+  <router-outlet></router-outlet>
 
-<footer>
+  <footer>
     <a href="">Impressum</a>
     <a href="">Datenschutz</a>
-</footer>
+  </footer>
+</div>
