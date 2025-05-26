@@ -16,16 +16,14 @@ export class MainSiteComponent {
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
       const path = this.router.url;
-      if (path.includes('')) {
-        this.backgroundClass = 'landing-bg';
-      } else if (path.includes('log_in')) {
+      if (path.includes('/log_in')) {
         this.backgroundClass = 'login-bg';
-      } else if (path.includes('sign_in')) {
+      } else if (path.includes('/sign_up')) {
         this.backgroundClass = 'signin-bg';
-      } else if (path.includes('forgot_password')) {
+      } else if (path.includes('/forgot_password')) {
         this.backgroundClass = 'forgot-bg';
       } else {
-        this.backgroundClass = 'default-bg';
+        this.backgroundClass = 'landing-bg';
       }
     });
   }

@@ -6,15 +6,20 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit {
+constructor( private router: Router) {
+  
+}
+
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -30,6 +35,7 @@ export class LandingPageComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       console.log('E-Mail:', this.loginForm.value.email);
+      this.router.navigate(['/sign_up'])
     } else {
       this.loginForm.markAllAsTouched();
     }

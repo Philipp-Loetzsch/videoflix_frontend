@@ -28,7 +28,7 @@ body {
   background-color: black;
 }
 
-.error{
+.error {
   position: absolute;
   margin-top: 1rem;
   background-color: var(--primary);
@@ -38,11 +38,11 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  &::before{
-    content: url('/img/allert.svg');
+  &::before {
+    content: url("/img/allert.svg");
     position: relative;
   }
-  &::after{
+  &::after {
     content: "";
     position: absolute;
     width: 1rem;
@@ -54,7 +54,9 @@ body {
   }
 }
 
-app-landing-page {
+app-landing-page,
+app-log-in,
+app-sign-in {
   flex: 1 1 auto;
   @include arrangement($fd: column);
   z-index: 9;

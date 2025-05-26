@@ -4,11 +4,7 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
-//   background-image: url("/img/startsite.jpg");
-  background-position: fixed;
   background-size: 100%;
-  top: 0;
-  left: 0;
   &::before {
     content: "";
     background-image: linear-gradient(
