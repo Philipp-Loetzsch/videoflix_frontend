@@ -1,12 +1,21 @@
-input{
-    padding: 12px 24px;
-    box-sizing: border-box;
-    font-weight: 400;
+.input {
+  padding: 12px 24px;
+  box-sizing: border-box;
+  font-weight: 400;
+  background-color: var(--input-field);
+  color: var(--secondary);
+  border: 1px solid white;
+  &--default {
+    @extend .input;
     border-radius: 40px;
-    border: 1px solid white;
-    background-color: var(--input-field);
+    
+  }
+  &--primary{
+    @extend .input;
+    border-color: var(--primary);
+    border-radius: 12px;
+  }
+  &::placeholder {
     color: var(--secondary);
-    &::placeholder{
-        color: var(--secondary)
-    }
+  }
 }

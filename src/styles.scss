@@ -30,7 +30,8 @@ body {
 
 .error {
   position: absolute;
-  margin-top: 1rem;
+  bottom: 0;
+  margin-bottom: 1rem;
   background-color: var(--primary);
   border-radius: 20px;
   padding: 24px 32px;
@@ -54,9 +55,17 @@ body {
   }
 }
 
+.content {
+  @include arrangement($fd: column);
+  form {
+    @include arrangement($fd: column, $g:1rem);
+  }
+}
+
 app-landing-page,
 app-log-in,
 app-sign-in {
+  position: relative;
   flex: 1 1 auto;
   @include arrangement($fd: column);
   z-index: 9;

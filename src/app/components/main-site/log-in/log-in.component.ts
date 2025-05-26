@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 })
 export class LogInComponent {
   constructor(private router: Router) {}
+  submitted: boolean = false
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -30,22 +31,19 @@ export class LogInComponent {
     ]),
   });
 
-  ngOnInit(): void {
-    this.loginForm.setValue({ email: '', password:''});
-  }
 
   onSubmit() {
+    this.submitted = true
     if (this.loginForm.valid) {
       console.log('E-Mail:', this.loginForm.value.email);
       this.router.navigate(['/sign_up']);
-    } else {
-      this.loginForm.markAllAsTouched();
     }
   }
+
   get email(): FormControl {
     return this.loginForm.get('email') as FormControl;
   }
   get password(): FormControl{
-        return this.loginForm.get('password') as FormControl;
+    return this.loginForm.get('password') as FormControl;
   }
 }
