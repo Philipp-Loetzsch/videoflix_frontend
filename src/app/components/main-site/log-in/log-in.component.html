@@ -1,22 +1,34 @@
 <div class="content">
   <h1>Log In</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="input--primary">
+    <img src="/img/mail.svg" alt="mail">
     <input
-      class="input--primary"
+      class="input-field"
       formControlName="email"
       type="email"
       placeholder="Email Address"
     />
+    </div>
 
+    <div class="input--primary">
+    <img src="/img/password.svg" alt="password">
     <input
-      class="input--primary"
-      type="password"
+      class="input-field"
+      [type]="showPw ? 'text' : 'password'"
       formControlName="password"
       placeholder="Password"
     />
+    <img class="toggle-pw" (click)="togglePw()" [src]="showPw ? '/img/visibility_off.svg' : '/img/visibility.svg'" alt="show_password">
+    </div>
 
     <button class="button--primary" type="submit">Log in</button>
   </form>
+  <a href="#">Forgot password?</a>
+  <div class="text">
+    <span>New to Videoflix?</span>
+    <a href="#">Sign Up now</a>
+  </div>
 </div>
 
 <div id="email-error" class="error" *ngIf="submitted && email.errors as errors">

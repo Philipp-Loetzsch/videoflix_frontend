@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class LogInComponent {
   constructor(private router: Router) {}
   submitted: boolean = false
+  showPw: boolean = false
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -45,5 +46,9 @@ export class LogInComponent {
   }
   get password(): FormControl{
     return this.loginForm.get('password') as FormControl;
+  }
+
+  togglePw(){
+    this.showPw = !this.showPw
   }
 }

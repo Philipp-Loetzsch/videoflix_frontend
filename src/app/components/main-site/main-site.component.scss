@@ -1,3 +1,5 @@
+$max-mobile-width: 1025px;
+
 .main-content {
   min-height: 100vh;
   display: flex;
@@ -40,13 +42,20 @@ footer {
   width: 100%;
   display: flex;
   max-width: var(--max-screen-witdth);
+  .d-none{
+    display: none;
+  }
+ 
 }
 
 header {
   justify-content: space-between;
-  padding: 10px 96px;
+  padding: 0.625rem 6rem;
   box-sizing: border-box;
   z-index: 9;
+ @media screen and (max-width: $max-mobile-width) {
+    padding: 10px 10px;
+  }
 }
 
 footer {

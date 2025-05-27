@@ -1,7 +1,7 @@
 <div class="main-content" [ngClass]="backgroundClass">
   <header>
-    <a href="#"><img src="/img/Logo.svg" alt="logo" /></a>
-    <button class="button--primary" [routerLink]="['log_in']">Log In</button>
+    <a href="#"><img [src]="isMobile ? '/img/Symbol.svg' : '/img/Logo.svg'" alt="logo" /></a>
+    <button class="button--primary" [ngClass]="dNone" [routerLink]="['log_in']">Log In</button>
   </header>
   <router-outlet></router-outlet>
 

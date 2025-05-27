@@ -57,10 +57,33 @@ body {
 
 .content {
   @include arrangement($fd: column);
+  background-color: var(--bg-content);
+  padding: 2.688rem 3.5rem;
+  box-sizing: border-box;
+  border-radius: 2.688rem;
+  gap: 1rem;
   form {
-    @include arrangement($fd: column, $g:1rem);
+    @include arrangement($fd: column, $g: 1rem);
+    .input-field{
+      background-color: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+    }
+    .toggle-pw{
+      cursor: pointer;
+      width: 25px;
+    }
+    input::placeholder {
+      color: var(--font-input);
+    }
+  }
+  @media screen and (max-width: 1025px) {
+    padding: 10px 10px;;
   }
 }
+
+
 
 app-landing-page,
 app-log-in,
