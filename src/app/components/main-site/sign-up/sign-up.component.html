@@ -1,1 +1,41 @@
-<p>sign-up works!</p>
+<div class="content">
+  <h1>Sign Up</h1>
+  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="input--primary">
+    <img src="/img/mail.svg" alt="mail">
+    <input
+      class="input-field"
+      formControlName="email"
+      type="email"
+      placeholder="Email Address"
+    />
+    </div>
+    <label for="email">{{emailError}}</label>
+
+    <div class="input--primary">
+    <img src="/img/password.svg" alt="password">
+    <input
+      class="input-field"
+      [type]="showPw ? 'text' : 'password'"
+      formControlName="password"
+      placeholder="Password"
+    />
+    <img class="toggle-pw" (click)="togglePw('showPw')" [src]="showPw ? '/img/visibility_off.svg' : '/img/visibility.svg'" alt="show_password">
+    </div>
+    <label for="password">{{pwError}}</label>
+
+    <div class="input--primary">
+    <img src="/img/password.svg" alt="password">
+    <input
+      class="input-field"
+      [type]="showCpw ? 'text' : 'password'"
+      formControlName="confirmpassword"
+      placeholder="Confirm Password"
+    />
+    <img class="toggle-pw" (click)="togglePw('showCpw')" [src]="showCpw ? '/img/visibility_off.svg' : '/img/visibility.svg'" alt="show_password">
+    </div>
+    <label for="password">{{cpwError}}</label>
+
+    <button class="button--primary" type="submit">Get Started</button>
+  </form>
+</div>
