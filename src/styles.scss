@@ -61,9 +61,8 @@ body {
   padding: 2.688rem 3.5rem;
   box-sizing: border-box;
   border-radius: 2.688rem;
-  gap: 1rem;
   form {
-    @include arrangement($fd: column, $g: 1rem);
+    @include arrangement($fd: column);
     .input-field{
       background-color: transparent;
       border: none;

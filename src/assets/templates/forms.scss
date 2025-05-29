@@ -22,3 +22,12 @@
     color: var(--secondary);
   }
 }
+
+.error-label{
+  color: var(--error-red);
+  font-size: 14px;
+  min-height: 1.5rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}

@@ -73,22 +73,33 @@ export class SignUpComponent {
   errorMsg() {
     const emailErrors = this.email.errors;
     const pwErrors = this.password.errors;
+    const pwValue = this.password.value;
+    const cpwValue = this.confirmpassword.value;
     if (emailErrors) {
       if (emailErrors['required']) this.emailError = 'Please enter an Email';
       else if (emailErrors['email'] || emailErrors['pattern']) {
-        this.emailError = 'Please enter a valid Email. E.g. your-mail@example.com';
+        this.emailError =
+          'Please enter a valid Email. E.g. your-mail@example.com';
       }
+    } else this.emailError = '';
+    if (pwErrors) this.errorPwMsg(pwErrors);
+    else {
+      this.pwError = '';
+      this.cpwError = '';
     }
-    else this.emailError = ''
-    if (pwErrors) this.errorPwMsg(pwErrors)
-      else this.pwError= ''
+    if (pwValue !== cpwValue && !pwErrors) this.cpwError = 'passwords dont match';
   }
 
-  errorPwMsg(pwErrors : ValidationErrors){
-    if(pwErrors['required']) this.pwError = 'please enter a password';
+  errorPwMsg(pwErrors: ValidationErrors) {
+    const confirmPwErrors = this.confirmpassword.errors;
+    if (pwErrors['required']) this.pwError = 'please enter a password';
     else if (pwErrors['minlength']) {
       this.pwError = 'minimum lenght 6';
     }
+    if (confirmPwErrors)
+      if (confirmPwErrors['required'])
+        this.cpwError = 'please confirm your password';
+      else if (confirmPwErrors['minLenght']) this.cpwError = 'minimum lenght 6';
   }
 
   togglePw(field: 'showPw' | 'showCpw') {
