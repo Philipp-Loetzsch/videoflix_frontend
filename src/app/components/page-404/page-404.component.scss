@@ -1,0 +1,14 @@
+@import './../main-site/main-site.component.scss';
+@import "./../../../assets/templates/mixins.scss";
+.content-404{
+  position: relative;
+  flex: 1 1 auto;
+  @include arrangement($fd: column);
+  z-index: 9;
+  gap: 1rem;
+  max-width: var(--max-screen-witdth);
+}
+
+h1{
+    text-transform: uppercase;
+}

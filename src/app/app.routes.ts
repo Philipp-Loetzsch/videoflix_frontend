@@ -8,6 +8,8 @@ import { LawComponent } from './components/law/law.component';
 import { PrivacyPolicyComponent } from './components/law/privacy-policy/privacy-policy.component';
 import { LegalNoticeComponent } from './components/law/legal-notice/legal-notice.component';
 import { VideoplayerComponent } from './components/videoplayer/videoplayer.component';
+import { ForgotPasswordComponent } from './components/main-site/forgot-password/forgot-password.component';
+import { Page404Component } from './components/page-404/page-404.component';
 
 export const routes: Routes = [
 { path: '', component: MainSiteComponent, 
@@ -15,6 +17,8 @@ export const routes: Routes = [
       { path: '', component: LandingPageComponent },
       { path: 'log_in', component: LogInComponent},
       { path: 'sign_up', component: SignUpComponent },
+      { path: 'forgot_password', component: ForgotPasswordComponent},
+
     ]
   },
 
@@ -26,5 +30,6 @@ export const routes: Routes = [
         {path:"legal_notice", component: LegalNoticeComponent},
     ]
   },
+  {path:'**', component: Page404Component}
 
 ];

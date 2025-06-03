@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
   ReactiveFormsModule,
+  ValidationErrors,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -19,6 +20,8 @@ export class LogInComponent {
   constructor(private router: Router) {}
   submitted: boolean = false
   showPw: boolean = false
+  emailError:string = ""
+  pwError:string = ""
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -39,6 +42,7 @@ export class LogInComponent {
       console.log('E-Mail:', this.loginForm.value.email);
       this.router.navigate(['/sign_up']);
     }
+    else this.errorMsg()
   }
 
   get email(): FormControl {
@@ -51,4 +55,28 @@ export class LogInComponent {
   togglePw(){
     this.showPw = !this.showPw
   }
+
+errorMsg() {
+    const emailErrors = this.email.errors;
+    const pwErrors = this.password.errors;
+    if (emailErrors) {
+      if (emailErrors['required']) this.emailError = 'Please enter an Email';
+      else if (emailErrors['email'] || emailErrors['pattern']) {
+        this.emailError =
+          'Please enter a valid Email. E.g. your-mail@example.com';
+      }
+    } else this.emailError = '';
+    if (pwErrors) this.errorPwMsg(pwErrors);
+    else {
+      this.pwError = '';
+    }
+  
+  }
+errorPwMsg(pwErrors: ValidationErrors) {
+    if (pwErrors['required']) this.pwError = 'please enter a password';
+    else if (pwErrors['minlength']) {
+      this.pwError = 'minimum lenght 6';
+    }
+  }
+
 }
