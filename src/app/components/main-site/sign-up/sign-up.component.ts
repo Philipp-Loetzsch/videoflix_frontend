@@ -9,6 +9,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ErrorsService } from '../../../services/errors.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private errorService: ErrorsService) {}
 
   showPw: boolean = false;
   showCpw: boolean = false;
@@ -70,36 +71,17 @@ export class SignUpComponent {
     } else this.errorMsg();
   }
 
-  errorMsg() {
+  async errorMsg() {
+    this.emailError ='', this.pwError = '', this.cpwError = '';
     const emailErrors = this.email.errors;
     const pwErrors = this.password.errors;
     const pwValue = this.password.value;
     const cpwValue = this.confirmpassword.value;
-    if (emailErrors) {
-      if (emailErrors['required']) this.emailError = 'Please enter an Email';
-      else if (emailErrors['email'] || emailErrors['pattern']) {
-        this.emailError =
-          'Please enter a valid Email. E.g. your-mail@example.com';
-      }
-    } else this.emailError = '';
-    if (pwErrors) this.errorPwMsg(pwErrors);
-    else {
-      this.pwError = '';
-      this.cpwError = '';
-    }
-    if (pwValue !== cpwValue && !pwErrors) this.cpwError = 'passwords dont match';
-  }
-
-  errorPwMsg(pwErrors: ValidationErrors) {
     const confirmPwErrors = this.confirmpassword.errors;
-    if (pwErrors['required']) this.pwError = 'please enter a password';
-    else if (pwErrors['minlength']) {
-      this.pwError = 'minimum lenght 6';
-    }
-    if (confirmPwErrors)
-      if (confirmPwErrors['required'])
-        this.cpwError = 'please confirm your password';
-      else if (confirmPwErrors['minLenght']) this.cpwError = 'minimum lenght 6';
+    if (emailErrors) this.emailError = await this.errorService.emailError(emailErrors)
+    if (pwErrors) this.pwError = await this.errorService.pwError(pwErrors);
+    if (confirmPwErrors) this.cpwError = await this.errorService.pwError(confirmPwErrors)
+    if (pwValue !== cpwValue && !pwErrors && !confirmPwErrors) this.cpwError = 'passwords dont match';
   }
 
   togglePw(field: 'showPw' | 'showCpw') {

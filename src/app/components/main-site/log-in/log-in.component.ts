@@ -8,6 +8,7 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ErrorsService } from '../../../services/errors.service';
 
 @Component({
   selector: 'app-log-in',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private errorService: ErrorsService) {}
   submitted: boolean = false
   showPw: boolean = false
   emailError:string = ""
@@ -56,27 +57,10 @@ export class LogInComponent {
     this.showPw = !this.showPw
   }
 
-errorMsg() {
+async errorMsg() {
     const emailErrors = this.email.errors;
     const pwErrors = this.password.errors;
-    if (emailErrors) {
-      if (emailErrors['required']) this.emailError = 'Please enter an Email';
-      else if (emailErrors['email'] || emailErrors['pattern']) {
-        this.emailError =
-          'Please enter a valid Email. E.g. your-mail@example.com';
-      }
-    } else this.emailError = '';
-    if (pwErrors) this.errorPwMsg(pwErrors);
-    else {
-      this.pwError = '';
-    }
-  
+    if (emailErrors) this.emailError = await this.errorService.emailError(emailErrors)
+    if (pwErrors) this.pwError = await this.errorService.pwError(pwErrors);
   }
-errorPwMsg(pwErrors: ValidationErrors) {
-    if (pwErrors['required']) this.pwError = 'please enter a password';
-    else if (pwErrors['minlength']) {
-      this.pwError = 'minimum lenght 6';
-    }
-  }
-
 }

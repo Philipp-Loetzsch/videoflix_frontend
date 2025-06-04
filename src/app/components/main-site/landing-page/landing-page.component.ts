@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { ErrorsService } from '../../../services/errors.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -16,10 +17,10 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit {
-constructor( private router: Router) {
+constructor( private router: Router, private errorService: ErrorsService) {
   
 }
-
+  emailError:string = ''
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -37,10 +38,16 @@ constructor( private router: Router) {
       console.log('E-Mail:', this.loginForm.value.email);
       this.router.navigate(['/sign_up'])
     } else {
-      this.loginForm.markAllAsTouched();
+      this.errorMsg();
     }
   }
     get email(): FormControl {
     return this.loginForm.get('email') as FormControl;
+  }
+
+  async errorMsg() {
+    const emailErrors = this.email.errors;
+    if (emailErrors) this.emailError = await this.errorService.emailError(emailErrors)
+    
   }
 }

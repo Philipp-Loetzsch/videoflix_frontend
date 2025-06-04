@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { log } from 'console';
+import { ErrorsService } from '../../../services/errors.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,7 +19,7 @@ import { log } from 'console';
   styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private errorService : ErrorsService) {}
   emailError: string = '';
   submitted: boolean = false;
 
@@ -41,14 +42,9 @@ export class ForgotPasswordComponent {
     return this.forgotPwForm.get('email') as FormControl;
   }
 
-  errorMsg() {
+  async errorMsg() {
+    this.emailError = '';
     const emailErrors = this.email.errors;
-    if (emailErrors) {
-      if (emailErrors['required']) this.emailError = 'Please enter an Email';
-      else if (emailErrors['email'] || emailErrors['pattern']) {
-        this.emailError =
-          'Please enter a valid Email. E.g. your-mail@example.com';
-      }
-    } else this.emailError = '';
+    if (emailErrors) this.emailError = await this.errorService.emailError(emailErrors);
   }
 }

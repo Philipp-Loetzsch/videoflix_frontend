@@ -9,25 +9,13 @@
         type="email"
         placeholder="Email Address"
       />
-
       <button class="button--primary" type="submit">
         Sign Up
         <img src="img/chevron_right.svg" alt="chevron_right" />
       </button>
     </div>
+    <label for="email" class="error-label" aria-label="error email">{{
+      emailError
+    }}</label>
   </form>
-</div>
-
-<div
-  id="email-error"
-  class="error"
-  *ngIf="email.touched && email.errors as errors"
->
-  <p *ngIf="errors['required']; else checkPattern">
-    Bitte gib eine E-Mail-Adresse ein.
-  </p>
-
-  <ng-template #checkPattern>
-    <p *ngIf="errors['pattern']">Das Format der E-Mail-Adresse ist ungültig.</p>
-  </ng-template>
 </div>
