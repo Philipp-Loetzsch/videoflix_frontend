@@ -1,6 +1,7 @@
 $max-mobile-width: 1025px;
 
 .main-content {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -55,6 +56,9 @@ header {
   z-index: 9;
  @media screen and (max-width: $max-mobile-width) {
     padding: 10px 10px;
+    img{
+      width: 50%;
+    }
   }
 }
 
@@ -64,6 +68,9 @@ footer {
   gap: 2rem;
   z-index: 9;
   max-width: var(--max-screen-witdth);
+   @media screen and (max-width: $max-mobile-width) {
+    padding-bottom:0.5rem ;
+   }
 }
 
 

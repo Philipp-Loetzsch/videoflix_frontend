@@ -1,14 +1,27 @@
-@import './../main-site/main-site.component.scss';
+@import "./../main-site/main-site.component.scss";
 @import "./../../../assets/templates/mixins.scss";
-.content-404{
+.content-404 {
   position: relative;
   flex: 1 1 auto;
   @include arrangement($fd: column);
   z-index: 9;
   gap: 1rem;
   max-width: var(--max-screen-witdth);
+  > img {
+    object-fit: contain;
+    background-color: black;
+    width: 33%;
+  }
 }
 
-h1{
-    text-transform: uppercase;
+h1 {
+  padding: 40px;
+  text-transform: uppercase;
+  font-size: clamp(1rem, calc(0.4483rem + 2.7586vw), 3rem);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.main-content::before {
+  background-image: linear-gradient(black);
 }
