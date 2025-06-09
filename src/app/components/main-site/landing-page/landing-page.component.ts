@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ErrorsService } from '../../../services/errors.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -17,10 +18,12 @@ import { ErrorsService } from '../../../services/errors.service';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit {
-constructor( private router: Router, private errorService: ErrorsService) {
-  
-}
-  emailError:string = ''
+  constructor(
+    private router: Router,
+    private errorService: ErrorsService,
+    private authService: AuthService
+  ) {}
+  emailError: string = '';
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -33,21 +36,22 @@ constructor( private router: Router, private errorService: ErrorsService) {
     this.loginForm.setValue({ email: '' });
   }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('E-Mail:', this.loginForm.value.email);
-      this.router.navigate(['/sign_up'])
+  async onSubmit() {
+    if (this.loginForm.valid && this.loginForm.value.email) {
+      let check = await this.authService.checkEmail(this.loginForm.value.email)
+      if (!check) this.router.navigate(['/sign_up']);
+      else this.router.navigate(['/log_in']);
     } else {
       this.errorMsg();
     }
   }
-    get email(): FormControl {
+  get email(): FormControl {
     return this.loginForm.get('email') as FormControl;
   }
 
   async errorMsg() {
     const emailErrors = this.email.errors;
-    if (emailErrors) this.emailError = await this.errorService.emailError(emailErrors)
-    
+    if (emailErrors)
+      this.emailError = await this.errorService.emailError(emailErrors);
   }
 }
