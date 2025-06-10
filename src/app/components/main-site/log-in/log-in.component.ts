@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../../../services/errors.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -18,11 +19,15 @@ import { ErrorsService } from '../../../services/errors.service';
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
-  constructor(private router: Router, private errorService: ErrorsService) {}
+  constructor(private router: Router, private errorService: ErrorsService, private authService: AuthService) {
+    this.currentEmail = this.authService.currentEmail    
+  }
+  
   submitted: boolean = false
   showPw: boolean = false
   emailError:string = ""
   pwError:string = ""
+  currentEmail:string =""
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -36,6 +41,14 @@ export class LogInComponent {
     ]),
   });
 
+  ngOnInit(): void {
+ 
+    if (this.authService.currentEmail) {
+      this.loginForm.patchValue({
+        email: this.authService.currentEmail 
+      });
+    }
+  }
 
   onSubmit() {
     this.submitted = true
@@ -46,7 +59,7 @@ export class LogInComponent {
     else this.errorMsg()
   }
 
-  get email(): FormControl {
+  get email(): FormControl {  
     return this.loginForm.get('email') as FormControl;
   }
   get password(): FormControl{

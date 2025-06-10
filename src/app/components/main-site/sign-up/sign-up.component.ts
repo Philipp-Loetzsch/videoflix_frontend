@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ErrorsService } from '../../../services/errors.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,7 +20,8 @@ import { ErrorsService } from '../../../services/errors.service';
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  constructor(private router: Router, private errorService: ErrorsService) {}
+  constructor(private router: Router, private errorService: ErrorsService, private authService: AuthService) {
+      this.currentEmail = this.authService.currentEmail }
 
   showPw: boolean = false;
   showCpw: boolean = false;
@@ -27,6 +29,7 @@ export class SignUpComponent {
   emailError: string = '';
   pwError: string = '';
   cpwError: string = '';
+  currentEmail:string =''
 
   signinForm = new FormGroup(
     {
@@ -46,6 +49,15 @@ export class SignUpComponent {
     },
     { validators: this.passwordsMatch }
   );
+
+   ngOnInit(): void {
+ 
+    if (this.authService.currentEmail) {
+      this.signinForm.patchValue({
+        email: this.authService.currentEmail 
+      });
+    }
+  }
 
   get email(): FormControl {
     return this.signinForm.get('email') as FormControl;

@@ -5,17 +5,33 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   constructor() {}
+
+  private URL_API_BACKEND: string = 'http://localhost:8000/api/';
+  public currentEmail:string = ''
+
   async checkEmail(email: string): Promise<boolean> {
-    const CHECK_URL = 'http://localhost:8000/api/check/';
-    if (email) {
+    const CHECK_URL = `${this.URL_API_BACKEND}check/`;
+    try {
       let response = await fetch(CHECK_URL, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json',},
-        body: JSON.stringify({email:email})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email }),
       });
-      let responseAsJson = await response.json() as boolean;
-      return responseAsJson
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log(errorData.message);
+        
+        throw new Error(errorData.message || `HTTP-Fehler! Status: ${response.status}`);
+      }
+      let responseAsJson = (await response.json()) as boolean;
+      this.currentEmail = email
+      return responseAsJson;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error('Ein unbekannter Fehler ist aufgetreten.');
+      }
     }
-    return false
   }
 }

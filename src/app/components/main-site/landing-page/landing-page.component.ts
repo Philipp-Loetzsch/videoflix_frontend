@@ -24,6 +24,7 @@ export class LandingPageComponent implements OnInit {
     private authService: AuthService
   ) {}
   emailError: string = '';
+  errorMessage:string | null = null
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -38,13 +39,21 @@ export class LandingPageComponent implements OnInit {
 
   async onSubmit() {
     if (this.loginForm.valid && this.loginForm.value.email) {
+      try{
       let check = await this.authService.checkEmail(this.loginForm.value.email)
       if (!check) this.router.navigate(['/sign_up']);
       else this.router.navigate(['/log_in']);
+      }
+      catch(error:any){
+         this.errorMessage = error.message || 'Ein unbekannter Fehler ist aufgetreten.';
+         console.log(this.errorMessage);
+         
+      }
     } else {
       this.errorMsg();
     }
   }
+
   get email(): FormControl {
     return this.loginForm.get('email') as FormControl;
   }
