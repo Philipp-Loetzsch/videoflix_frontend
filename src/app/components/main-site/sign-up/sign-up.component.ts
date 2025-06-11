@@ -75,11 +75,16 @@ export class SignUpComponent {
     return password === confirm ? null : { passwordMismatch: true };
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true;
-    if (this.signinForm.valid) {
-      console.log('E-Mail:', this.signinForm.value.email);
-      this.router.navigate(['/sign_up']);
+    if (this.signinForm.valid && this.signinForm.value) {
+      const registrated = await this.authService.createUser(this.signinForm)
+      if (registrated) console.log('erfolgreich');
+      else console.error('mist');
+      
+      
+      // console.log('E-Mail:', this.signinForm.value.email);
+      // this.router.navigate(['/sign_up']);
     } else this.errorMsg();
   }
 

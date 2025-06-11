@@ -10,6 +10,7 @@ import { LegalNoticeComponent } from './components/law/legal-notice/legal-notice
 import { VideoplayerComponent } from './components/videoplayer/videoplayer.component';
 import { ForgotPasswordComponent } from './components/main-site/forgot-password/forgot-password.component';
 import { Page404Component } from './components/page-404/page-404.component';
+import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 
 export const routes: Routes = [
 { path: '', component: MainSiteComponent, 
@@ -30,6 +31,7 @@ export const routes: Routes = [
         {path:"legal_notice", component: LegalNoticeComponent},
     ]
   },
+  {path: 'activate/:token', component: ActivateAccountComponent},
   {path:'**', component: Page404Component}
 
 ];

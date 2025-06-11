@@ -87,7 +87,8 @@ body {
 app-landing-page,
 app-log-in,
 app-sign-up,
-app-forgot-password{
+app-forgot-password,
+.content-activate{
   position: relative;
   flex: 1 1 auto;
   @include arrangement($fd: column);

@@ -1,0 +1,14 @@
+@import "./../main-site/main-site.component.scss";
+@import "./../../../assets/templates/mixins.scss";
+
+h1 {
+  padding: 40px;
+  text-transform: uppercase;
+  font-size: clamp(1rem, calc(0.4483rem + 2.7586vw), 3rem);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.main-content::before {
+  background-image: linear-gradient(black);
+}
