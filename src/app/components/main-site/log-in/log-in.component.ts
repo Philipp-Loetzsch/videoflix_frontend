@@ -20,9 +20,9 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class LogInComponent {
   constructor(private router: Router, private errorService: ErrorsService, private authService: AuthService) {
-    this.currentEmail = this.authService.currentEmail    
+    this.currentEmail = this.authService.currentEmail
   }
-  
+
   submitted: boolean = false
   showPw: boolean = false
   emailError:string = ""
@@ -42,24 +42,26 @@ export class LogInComponent {
   });
 
   ngOnInit(): void {
- 
+
     if (this.authService.currentEmail) {
       this.loginForm.patchValue({
-        email: this.authService.currentEmail 
+        email: this.authService.currentEmail
       });
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true
     if (this.loginForm.valid) {
-      console.log('E-Mail:', this.loginForm.value.email);
-      this.router.navigate(['/sign_up']);
+      const logIn = await this.authService.logIn(this.loginForm)
+      if(logIn) this.router.navigate(['/offers']);
+      else console.log('oops');
+
     }
     else this.errorMsg()
   }
 
-  get email(): FormControl {  
+  get email(): FormControl {
     return this.loginForm.get('email') as FormControl;
   }
   get password(): FormControl{

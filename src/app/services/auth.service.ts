@@ -63,8 +63,6 @@ export class AuthService {
         throw new Error('Ein unbekannter Fehler ist aufgetreten.');
       }
     }
-
-    return false;
   }
 
   async activateAccount(token: string) {
@@ -91,4 +89,34 @@ export class AuthService {
       }
     }
   }
+
+  async logIn(logInForm:FormGroup): Promise<boolean> {
+    const values = logInForm.value
+    const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
+    try {
+      let response = await fetch(LOGIN_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email: values.email,
+          password: values.password,
+         }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || `HTTP-Fehler! Status: ${response.status}`
+        );
+      }
+      let responseAsJson = (await response.json()) as boolean;
+      return responseAsJson;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error('Ein unbekannter Fehler ist aufgetreten.');
+      }
+    }
+  }
+
 }
