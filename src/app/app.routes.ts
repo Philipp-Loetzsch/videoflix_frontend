@@ -11,14 +11,17 @@ import { VideoplayerComponent } from './components/videoplayer/videoplayer.compo
 import { ForgotPasswordComponent } from './components/main-site/forgot-password/forgot-password.component';
 import { Page404Component } from './components/page-404/page-404.component';
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
+import { ResetPasswordComponent } from './components/main-site/reset-password/reset-password.component';
 
 export const routes: Routes = [
-{ path: '', component: MainSiteComponent, 
+{ path: '', component: MainSiteComponent,
     children: [
       { path: '', component: LandingPageComponent },
       { path: 'log_in', component: LogInComponent},
       { path: 'sign_up', component: SignUpComponent },
       { path: 'forgot_password', component: ForgotPasswordComponent},
+      { path: 'reset_password', component: ResetPasswordComponent},
+
 
     ]
   },

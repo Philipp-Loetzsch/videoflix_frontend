@@ -28,6 +28,10 @@ body {
   background-color: black;
 }
 
+.blue{
+  color: var(--primary);
+}
+
 .error {
   position: absolute;
   bottom: 0;
@@ -88,6 +92,7 @@ app-landing-page,
 app-log-in,
 app-sign-up,
 app-forgot-password,
+app-reset-password,
 .content-activate{
   position: relative;
   flex: 1 1 auto;
