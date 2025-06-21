@@ -5,7 +5,21 @@
       <img src="/img/logout.svg" alt="" /> Log out
     </button>
   </header>
-  <main>test</main>
+  <main>
+    <h2>New on Videoflix</h2>
+    <article>
+      <div *ngFor="let content of latestContent">
+        <img [src]="content.thumbnail" alt="" />
+      </div>
+    </article>
+
+    <h2 *ngFor="let category of groupedByCategory | keyvalue">
+      {{ category.key }}
+      <div *ngFor="let item of category.value">
+        <img [src]="item.thumbnail" alt="" />
+      </div>
+    </h2>
+  </main>
   <footer>
     <a href="">Impressum</a>
     <a href="">Datenschutz</a>
