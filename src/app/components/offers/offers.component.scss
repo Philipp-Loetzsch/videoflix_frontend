@@ -1,3 +1,5 @@
+@import "swiper/swiper-bundle.css";
+
 .plattform{
   max-height: 100vh;
   min-height: 100vh;
@@ -12,4 +14,11 @@ main{
 
 footer{
   justify-content: end !important;
+}
+
+swiper-slide{
+  img{
+    object-fit: contain;
+    width: 100%;
+  }
 }

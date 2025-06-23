@@ -7,18 +7,34 @@
   </header>
   <main>
     <h2>New on Videoflix</h2>
-    <article>
-      <div *ngFor="let content of latestContent">
+    <swiper-container
+      slides-per-view="3"
+      space-between="10"
+      loop="true"
+      free-mode="true"
+      grab-cursor="true"
+      style="width: 100%; height: 220px"
+    >
+      <swiper-slide *ngFor="let content of latestContent">
         <img [src]="content.thumbnail" alt="" />
-      </div>
-    </article>
+      </swiper-slide>
+    </swiper-container>
 
-    <h2 *ngFor="let category of groupedByCategory | keyvalue">
-      {{ category.key }}
-      <div *ngFor="let item of category.value">
-        <img [src]="item.thumbnail" alt="" />
-      </div>
-    </h2>
+    <article *ngFor="let category of groupedByCategory | keyvalue">
+      <h2>{{ category.key }}</h2>
+      <swiper-container
+        slides-per-view="3"
+        space-between="10"
+        loop="true"
+        free-mode="true"
+        grab-cursor="true"
+        style="width: 100%; height: 220px"
+      >
+        <swiper-slide *ngFor="let item of category.value">
+          <img [src]="item.thumbnail" alt="" />
+        </swiper-slide>
+      </swiper-container>
+    </article>
   </main>
   <footer>
     <a href="">Impressum</a>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ContentService } from '../../services/content.service';
 import { CommonModule } from '@angular/common';
 import { Content } from '../../content';
+import { register } from 'swiper/element/bundle';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 @Component({
@@ -10,6 +12,7 @@ import { Content } from '../../content';
   imports: [CommonModule,],
   templateUrl: './offers.component.html',
   styleUrl: './offers.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class OffersComponent {
   currentContent: Content[] = [];
@@ -19,6 +22,7 @@ export class OffersComponent {
   constructor(private contetService: ContentService) {}
 
   async ngOnInit(): Promise<void> {
+    register()
     const data = await this.contetService.getContent();
     this.currentContent = data;
 
@@ -33,4 +37,5 @@ export class OffersComponent {
       return acc;
     }, {} as Record<string, Content[]>);
   }
+
 }
