@@ -1,24 +1,71 @@
 @import "swiper/swiper-bundle.css";
 
-.plattform{
+.plattform {
   max-height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-
+  position: relative;
 }
-
-main{
+.preview {
+  margin: 2rem 2rem;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  height: 45vh;
+  h1,
+  span,
+  button {
+    position: relative;
+    z-index: 999;
+  }
+  span {
+    max-width: 50%;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    object-fit: fill;
+    opacity: 0.5;
+    z-index: -1;
+  }
+}
+main {
   flex: 1 1 auto;
+  margin: 0 2rem;
+  max-height: calc(100vh - 77px - 96px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
-
-footer{
+header {
+  align-self: center;
+}
+footer {
   justify-content: end !important;
 }
 
-swiper-slide{
-  img{
-    object-fit: contain;
+swiper-slide {
+  aspect-ratio: 16/9;
+  img {
+    object-fit: cover;
+    object-position: center;
     width: 100%;
+    height: 100%;
   }
 }
