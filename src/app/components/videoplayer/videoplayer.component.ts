@@ -57,7 +57,7 @@ type VideoJsPlayerWithPlugin = Player & {
   templateUrl: './videoplayer.component.html',
   styleUrl: './videoplayer.component.scss',
 })
-export class VideoplayerComponent implements AfterViewInit, OnDestroy {
+export class VideoplayerComponent implements OnDestroy {
   currentContent?: Content;
  player!: VideoJsPlayerWithPlugin;
 
@@ -65,16 +65,15 @@ export class VideoplayerComponent implements AfterViewInit, OnDestroy {
 
   constructor(private contentService: ContentService) {}
 
-  async ngAfterViewInit(): Promise<void> {
+  async ngOnInit(): Promise<void> {
     this.currentContent = await this.contentService.getSingleContent();
-
     if (!this.currentContent?.hls_playlist) return;
 
     this.player = videojs(this.target.nativeElement, {
       controls: true,
       autoplay: false,
       preload: 'auto',
-      fluid: true,
+      fluid: false,
       sources: [
         {
           src: this.currentContent.hls_playlist,
@@ -82,7 +81,7 @@ export class VideoplayerComponent implements AfterViewInit, OnDestroy {
         },
       ],
     });
-    this.player.httpSourceSelector?.(); // Plugin initialisieren
+    this.player.httpSourceSelector?.();
     this.player.on('ready', () => {
       this.player.httpSourceSelector?.({ default: 'auto' });
     });
