@@ -13,12 +13,12 @@ export class ContentService {
  async getContent(): Promise<Content[]>{
     const response = await fetch(this.URL_CONTENT,{
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
       }
 
     )
     let currentContent = await response.json()
-    console.log(currentContent);
     return currentContent
   }
 

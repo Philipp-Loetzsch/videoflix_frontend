@@ -43,7 +43,7 @@ export class AuthService {
       let response = await fetch(REGISTARTION_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email: values.email,
           password: values.password,
           repeated_password: values.confirmpassword }),
@@ -97,10 +97,11 @@ export class AuthService {
       let response = await fetch(LOGIN_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email: values.email,
           password: values.password,
          }),
+         credentials: 'include'
       });
       if (!response.ok) {
         const errorData = await response.json();
