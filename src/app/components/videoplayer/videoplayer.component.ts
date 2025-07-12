@@ -58,7 +58,7 @@ type VideoJsPlayerWithPlugin = Player & {
   styleUrl: './videoplayer.component.scss',
 })
 export class VideoplayerComponent implements OnDestroy {
-  currentContent?: Content;
+  currentContent?: Content | null;
  player!: VideoJsPlayerWithPlugin;
 
   @ViewChild('target', { static: true }) target!: ElementRef;

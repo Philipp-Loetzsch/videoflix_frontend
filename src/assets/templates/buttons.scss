@@ -15,6 +15,10 @@
     &:hover {
       background-color: var(--secondary);
       color: var(--primary);
+      img {
+        filter: brightness(0) saturate(100%) invert(20%) sepia(65%)
+          saturate(3394%) hue-rotate(230deg) brightness(95%) contrast(99%);
+      }
     }
   }
   &--secondary {

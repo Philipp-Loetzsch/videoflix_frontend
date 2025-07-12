@@ -4,20 +4,20 @@ import { CommonModule } from '@angular/common';
 import { Content } from '../../content';
 import { register } from 'swiper/element/bundle';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-offers',
   standalone: true,
-  imports: [CommonModule,],
+  imports: [CommonModule, RouterModule],
   templateUrl: './offers.component.html',
   styleUrl: './offers.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class OffersComponent {
   currentContent: Content[] = [];
-  latestContent: Content[] = [];
+  latestContent: Content[]  = [];
   groupedByCategory: Record<string, Content[]> = {};
   chosenContent?:Content
 
