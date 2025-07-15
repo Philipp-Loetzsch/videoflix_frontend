@@ -69,3 +69,26 @@ swiper-slide {
     height: 100%;
   }
 }
+
+swiper-container {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20rem;
+    height: 100%;
+    background: linear-gradient(
+      to left,
+      black,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0.70),
+      rgba(0, 0, 0, 0.4),
+      transparent
+    );
+
+    z-index: 9999;
+    pointer-events: none;
+  }
+}

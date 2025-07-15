@@ -8,9 +8,11 @@
   <section class="preview">
     <h1>{{ chosenContent?.title }}</h1>
     <span>{{ chosenContent?.description }}</span>
-    <button class="button--primary" (click)="openPlayer(chosenContent?.id)">Play</button>
+    <button class="button--primary" (click)="openPlayer(chosenContent?.id)">
+      Play
+    </button>
     <!-- <img src="{{chosenContent?.thumbnail}}" alt="Background"> -->
-    <video src="{{ chosenContent?.preview }}" autoplay loop></video>
+    <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop  (loadedmetadata)="setVolume()"></video>
   </section>
   <main>
     <h2>New on Videoflix</h2>

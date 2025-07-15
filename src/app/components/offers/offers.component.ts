@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ContentService } from '../../services/content.service';
 import { CommonModule } from '@angular/common';
 import { Content } from '../../content';
 import { register } from 'swiper/element/bundle';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-
 
 @Component({
   selector: 'app-offers',
@@ -17,16 +16,17 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class OffersComponent {
   currentContent: Content[] = [];
-  latestContent: Content[]  = [];
+  latestContent: Content[] = [];
   groupedByCategory: Record<string, Content[]> = {};
-  chosenContent?:Content
+  chosenContent?: Content;
 
-  constructor(private contetService: ContentService,
-     private router: Router,
-  ) {}
+  constructor(private contetService: ContentService, private router: Router) {}
+
+  @ViewChild('videoPlayer') videoRef!: ElementRef<HTMLVideoElement>;
+
 
   async ngOnInit(): Promise<void> {
-    register()
+    register();
     const data = await this.contetService.getContent();
     this.currentContent = data;
 
@@ -41,20 +41,24 @@ export class OffersComponent {
       return acc;
     }, {} as Record<string, Content[]>);
     this.chosenContent = this.latestContent[0];
-  }
-
-  choseContent(uuid:string){
-    console.log(uuid);
-    this.chosenContent = this.currentContent.find(item => item.uuid === uuid);
-    console.log(this.chosenContent);
 
   }
 
-  openPlayer(id:number | undefined){
-    if(id){
-      this.contetService.chosenVideoId = id
-      this.router.navigate(['/player'])
+  choseContent(uuid: string) {
+    this.chosenContent = this.currentContent.find((item) => item.uuid === uuid);
+  }
+
+  openPlayer(id: number | undefined) {
+    if (id) {
+      this.contetService.chosenVideoId = id;
+      this.router.navigate(['/player']);
     }
   }
+
+  setVolume() {
+  if (this.videoRef?.nativeElement) {
+    this.videoRef.nativeElement.volume = 0.2;
+  }
+}
 
 }

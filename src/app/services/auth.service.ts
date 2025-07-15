@@ -38,7 +38,7 @@ export class AuthService {
 
   async createUser(signInForm: FormGroup): Promise<boolean> {
     const REGISTARTION_URL = `${this.URL_API_BACKEND}register/`;
-    const values = signInForm.value
+    const values = signInForm.value;
     try {
       let response = await fetch(REGISTARTION_URL, {
         method: 'POST',
@@ -46,7 +46,8 @@ export class AuthService {
         body: JSON.stringify({
           email: values.email,
           password: values.password,
-          repeated_password: values.confirmpassword }),
+          repeated_password: values.confirmpassword,
+        }),
       });
       if (!response.ok) {
         const errorData = await response.json();
@@ -90,34 +91,54 @@ export class AuthService {
     }
   }
 
-  async logIn(logInForm:FormGroup): Promise<boolean> {
-    const values = logInForm.value
-    const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
-    try {
-      let response = await fetch(LOGIN_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: values.email,
-          password: values.password,
-         }),
-         credentials: 'include'
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.message || `HTTP-Fehler! Status: ${response.status}`
-        );
-      }
-      let responseAsJson = (await response.json()) as boolean;
-      return responseAsJson;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      } else {
-        throw new Error('Ein unbekannter Fehler ist aufgetreten.');
-      }
-    }
+  // async logIn(logInForm:FormGroup): Promise<boolean | Error> {
+  //   const values = logInForm.value
+  //   const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
+  //   try {
+  //     let response = await fetch(LOGIN_URL, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({
+  //         email: values.email,
+  //         password: values.password,
+  //        }),
+  //        credentials: 'include'
+  //     });
+  //     console.log(await response.json());
+
+  //     if (!response.ok) {
+  //       let errormsg = await response.json()
+  //       return errormsg
+  //     }
+  //     let responseAsJson = (await response.json()) as boolean;
+
+  //     return responseAsJson;
+  //   } catch (error) {
+  //     return error as Error
+  //   }
+  // }
+
+async logIn(logInForm: FormGroup): Promise<true |  string[] | Error> {
+  const { email, password } = logInForm.value;
+  const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
+
+  try {
+    const response = await fetch(LOGIN_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json(); // nur einmal aufrufen
+
+    if (response.ok) return true;
+
+    return data.detail as string[]; // <-- JSON-Fehlermeldung vom Server
+  } catch (err) {
+    return err as Error; // Fetch-/Netzwerkfehler
   }
+}
+
 
 }

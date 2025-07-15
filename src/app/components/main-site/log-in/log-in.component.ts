@@ -19,15 +19,20 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
-  constructor(private router: Router, private errorService: ErrorsService, private authService: AuthService) {
-    this.currentEmail = this.authService.currentEmail
+  constructor(
+    private router: Router,
+    private errorService: ErrorsService,
+    private authService: AuthService
+  ) {
+    this.currentEmail = this.authService.currentEmail;
   }
 
-  submitted: boolean = false
-  showPw: boolean = false
-  emailError:string = ""
-  pwError:string = ""
-  currentEmail:string =""
+  submitted: boolean = false;
+  showPw: boolean = false;
+  emailError: string = '';
+  pwError: string = '';
+  currentEmail: string = '';
+  errorMessage: string | null = null;
 
   loginForm = new FormGroup({
     email: new FormControl('', [
@@ -42,40 +47,48 @@ export class LogInComponent {
   });
 
   ngOnInit(): void {
-
     if (this.authService.currentEmail) {
       this.loginForm.patchValue({
-        email: this.authService.currentEmail
+        email: this.authService.currentEmail,
       });
     }
   }
 
   async onSubmit() {
-    this.submitted = true
+    this.submitted = true;
     if (this.loginForm.valid) {
-      const logIn = await this.authService.logIn(this.loginForm)
-      if(logIn) this.router.navigate(['/offers']);
-      else console.log('oops');
+      const result = await this.authService.logIn(this.loginForm);
 
-    }
-    else this.errorMsg()
+      if (result === true) {
+        this.router.navigate(['/offers']);
+      } else if (result instanceof Error) {
+        this.errorMessage = result.message;
+      } else if (Array.isArray(result)) {
+        this.errorMessage = result[0];
+      } else if (result && Array.isArray(result)) {
+        this.errorMessage = result[0];
+      } else {
+        this.errorMessage = 'Unbekannter Fehler';
+      }
+    } else this.errorMsg();
   }
 
   get email(): FormControl {
     return this.loginForm.get('email') as FormControl;
   }
-  get password(): FormControl{
+  get password(): FormControl {
     return this.loginForm.get('password') as FormControl;
   }
 
-  togglePw(){
-    this.showPw = !this.showPw
+  togglePw() {
+    this.showPw = !this.showPw;
   }
 
-async errorMsg() {
+  async errorMsg() {
     const emailErrors = this.email.errors;
     const pwErrors = this.password.errors;
-    if (emailErrors) this.emailError = await this.errorService.emailError(emailErrors)
+    if (emailErrors)
+      this.emailError = await this.errorService.emailError(emailErrors);
     if (pwErrors) this.pwError = await this.errorService.pwError(pwErrors);
   }
 }
