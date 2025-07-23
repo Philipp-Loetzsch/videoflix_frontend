@@ -8,7 +8,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorsService } from '../../../services/errors.service';
 import { AuthService } from '../../../services/auth.service';
 
@@ -21,7 +21,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ResetPasswordComponent {
   constructor(
-    private router: Router,
+    private route: ActivatedRoute,
     private errorService: ErrorsService,
     private authService: AuthService
   ) {
@@ -35,6 +35,8 @@ export class ResetPasswordComponent {
   cpwError: string = '';
   currentEmail: string = '';
   signInErrorMsg: string = '';
+  token: string =""
+  success:string =""
 
   resetForm = new FormGroup(
     {
@@ -67,10 +69,12 @@ export class ResetPasswordComponent {
   async onSubmit() {
     this.submitted = true;
     if (this.resetForm.valid && this.resetForm.value) {
-      const registrated = await this.authService.createUser(this.resetForm);
-      if (registrated) this.router.navigate(['/log_in']);
-      else this.signInErrorMsg = 'Sign up failed, Please try again';
-    } else this.errorMsg();
+      this.token = this.route.snapshot.paramMap.get('token') || '';
+      const answer = await this.authService.resetPassword(this.resetForm, this.token);
+      this.success = answer
+      this.resetForm.reset();
+    } 
+    else this.errorMsg();
   }
 
   async errorMsg() {

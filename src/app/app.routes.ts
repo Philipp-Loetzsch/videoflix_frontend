@@ -20,7 +20,7 @@ export const routes: Routes = [
       { path: 'log_in', component: LogInComponent},
       { path: 'sign_up', component: SignUpComponent },
       { path: 'forgot_password', component: ForgotPasswordComponent},
-      { path: 'reset_password', component: ResetPasswordComponent},
+      { path: 'reset_password/:token', component: ResetPasswordComponent},
 
 
     ]

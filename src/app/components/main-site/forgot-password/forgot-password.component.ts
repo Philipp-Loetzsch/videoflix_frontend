@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { log } from 'console';
 import { ErrorsService } from '../../../services/errors.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,7 +20,7 @@ import { ErrorsService } from '../../../services/errors.service';
   styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent {
-  constructor(private router: Router, private errorService : ErrorsService) {}
+  constructor(private router: Router, private errorService : ErrorsService, private authService: AuthService) {}
   emailError: string = '';
   submitted: boolean = false;
 
@@ -31,10 +32,11 @@ export class ForgotPasswordComponent {
     ]),
   });
 
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true;
-    if (this.forgotPwForm.valid) {
+    if (this.forgotPwForm.valid && this.forgotPwForm.value.email) {
       console.log(`Es wird eine Email an ${this.email.value} gesendet`);
+      await this.authService.forgotPassword(this.forgotPwForm.value.email)
     } else this.errorMsg();
   }
 

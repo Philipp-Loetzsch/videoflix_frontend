@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor() { }
 
   private URL_API_BACKEND: string = 'http://localhost:8000/api/';
   public currentEmail: string = '';
@@ -91,54 +91,81 @@ export class AuthService {
     }
   }
 
-  // async logIn(logInForm:FormGroup): Promise<boolean | Error> {
-  //   const values = logInForm.value
-  //   const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
-  //   try {
-  //     let response = await fetch(LOGIN_URL, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({
-  //         email: values.email,
-  //         password: values.password,
-  //        }),
-  //        credentials: 'include'
-  //     });
-  //     console.log(await response.json());
+  async logIn(logInForm: FormGroup): Promise<true | string[] | Error> {
+    const { email, password } = logInForm.value;
+    const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
 
-  //     if (!response.ok) {
-  //       let errormsg = await response.json()
-  //       return errormsg
-  //     }
-  //     let responseAsJson = (await response.json()) as boolean;
+    try {
+      const response = await fetch(LOGIN_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email, password }),
+      });
 
-  //     return responseAsJson;
-  //   } catch (error) {
-  //     return error as Error
-  //   }
-  // }
+      const data = await response.json();
 
-async logIn(logInForm: FormGroup): Promise<true |  string[] | Error> {
-  const { email, password } = logInForm.value;
-  const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
+      if (response.ok) return true;
 
-  try {
-    const response = await fetch(LOGIN_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await response.json(); // nur einmal aufrufen
-
-    if (response.ok) return true;
-
-    return data.detail as string[]; // <-- JSON-Fehlermeldung vom Server
-  } catch (err) {
-    return err as Error; // Fetch-/Netzwerkfehler
+      return data.detail as string[];
+    } catch (err) {
+      return err as Error;
+    }
   }
-}
 
-
+  async forgotPassword(email: string) {
+    const FORGOTURL = `${this.URL_API_BACKEND}forgotpassword/`;
+    try {
+      let response = await fetch(FORGOTURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || `HTTP-Fehler! Status: ${response.status}`
+        );
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error('Ein unbekannter Fehler ist aufgetreten.');
+      }
+    }
+  }
+  async resetPassword(resetForm: FormGroup, token: string): Promise<string> {
+    const RESETURL = `${this.URL_API_BACKEND}resetpassword/`;
+    const { password, confirmpassword } = resetForm.value;
+    try {
+      let response = await fetch(RESETURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: token,
+          new_password: password,
+          repeated_new_password: confirmpassword
+        }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || `HTTP-Fehler! Status: ${response.status}`
+        );
+      }
+      const data = await response.json();
+      console.log(data["detail"]);
+      return data["detail"]
+      
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      } else {
+        throw new Error('Ein unbekannter Fehler ist aufgetreten.');
+      }
+    }
+  }
 }
