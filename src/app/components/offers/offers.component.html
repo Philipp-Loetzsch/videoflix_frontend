@@ -12,41 +12,27 @@
       Play
     </button>
     <!-- <img src="{{chosenContent?.thumbnail}}" alt="Background"> -->
-    <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop  (loadedmetadata)="setVolume()"></video>
+    <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop (loadedmetadata)="setVolume()"></video>
   </section>
   <main>
-    <h2>New on Videoflix</h2>
-    <swiper-container
-      slides-per-view="5"
-      space-between="10"
-      loop="true"
-      free-mode="true"
-      grab-cursor="true"
-    >
-      <swiper-slide *ngFor="let content of latestContent">
-        <img
-          (click)="choseContent(content.uuid)"
-          [src]="content.thumbnail"
-          alt=""
-        />
-      </swiper-slide>
-    </swiper-container>
+    <article>
+      <h2>New on Videoflix</h2>
+      <swiper-container slides-per-view="5" space-between="10" loop="true" free-mode="true" grab-cursor="true">
+        <swiper-slide *ngFor="let content of latestContent">
+          <div>
+            <span>{{content.preview_title}}</span>
+            <img (click)="choseContent(content.uuid)" [src]="content.thumbnail" alt="" />
+          </div>
 
-    <article *ngFor="let category of groupedByCategory | keyvalue">
+        </swiper-slide>
+      </swiper-container>
+    </article>
+
+    <article class="bg-black" *ngFor="let category of groupedByCategory | keyvalue">
       <h2>{{ category.key }}</h2>
-      <swiper-container
-        slides-per-view="5"
-        space-between="10"
-        loop="true"
-        free-mode="true"
-        grab-cursor="true"
-      >
+      <swiper-container slides-per-view="5" space-between="10" loop="true" free-mode="true" grab-cursor="true">
         <swiper-slide *ngFor="let item of category.value">
-          <img
-            (click)="choseContent(item.uuid)"
-            [src]="item.thumbnail"
-            alt=""
-          />
+          <img (click)="choseContent(item.uuid)" [src]="item.thumbnail" alt="" />
         </swiper-slide>
       </swiper-container>
     </article>

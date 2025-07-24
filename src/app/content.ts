@@ -8,6 +8,7 @@ export interface Content {
     id: number;
     preview: string;
     thumbnail: string;
+    preview_title:string;
     title: string;
     uuid: string;
 }

@@ -7,6 +7,12 @@
   flex-direction: column;
   position: relative;
 }
+
+h2 {
+  margin: 0;
+  padding: 0.83rem 0;
+}
+
 .preview {
   margin: 2rem 2rem;
   display: flex;
@@ -15,15 +21,18 @@
   justify-content: center;
   gap: 2rem;
   height: 45vh;
+
   h1,
   span,
   button {
     position: relative;
     z-index: 999;
   }
+
   span {
     max-width: 50%;
   }
+
   img {
     position: absolute;
     top: 0;
@@ -33,6 +42,7 @@
     object-fit: cover;
     object-position: top;
   }
+
   video {
     position: absolute;
     top: 0;
@@ -44,24 +54,38 @@
     z-index: -1;
   }
 }
+
 main {
   flex: 1 1 auto;
-  margin: 0 2rem;
   max-height: calc(100vh - 77px - 96px);
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
     display: none;
   }
 }
+
+article {
+
+
+  padding: 0 2rem;
+}
+
+.bg-black {
+  background-color: black;
+}
+
 header {
   align-self: center;
 }
+
 footer {
   justify-content: end !important;
 }
 
 swiper-slide {
   aspect-ratio: 16/9;
+
   img {
     object-fit: cover;
     object-position: center;
@@ -72,6 +96,7 @@ swiper-slide {
 
 swiper-container {
   position: relative;
+
   &::before {
     content: "";
     position: absolute;
@@ -79,14 +104,12 @@ swiper-container {
     right: 0;
     width: 20rem;
     height: 100%;
-    background: linear-gradient(
-      to left,
-      black,
-      rgba(0, 0, 0, 1),
-      rgba(0, 0, 0, 0.70),
-      rgba(0, 0, 0, 0.4),
-      transparent
-    );
+    background: linear-gradient(to left,
+        black,
+        rgba(0, 0, 0, 1),
+        rgba(0, 0, 0, 0.70),
+        rgba(0, 0, 0, 0.4),
+        transparent);
 
     z-index: 9999;
     pointer-events: none;
