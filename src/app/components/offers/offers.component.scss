@@ -66,9 +66,32 @@ main {
 }
 
 article {
-
-
   padding: 0 2rem;
+}
+
+.preview-small{
+  position: relative;
+  cursor: pointer;
+  &__title{
+    position: absolute;
+    text-align: center;
+    font-weight: 800;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: clamp(1rem, calc(0.7143rem + 1.4286vw), 2rem) !important;
+    opacity: 0;
+    pointer-events: none;
+    @media screen and (max-width: 786px) {
+      opacity: 1;
+    }
+  }
+  &:hover{
+    .preview-small__title{
+      opacity: 1;
+    }
+  }
 }
 
 .bg-black {

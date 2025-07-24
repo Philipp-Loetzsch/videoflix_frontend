@@ -11,7 +11,6 @@
     <button class="button--primary" (click)="openPlayer(chosenContent?.id)">
       Play
     </button>
-    <!-- <img src="{{chosenContent?.thumbnail}}" alt="Background"> -->
     <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop (loadedmetadata)="setVolume()"></video>
   </section>
   <main>
@@ -19,8 +18,8 @@
       <h2>New on Videoflix</h2>
       <swiper-container slides-per-view="5" space-between="10" loop="true" free-mode="true" grab-cursor="true">
         <swiper-slide *ngFor="let content of latestContent">
-          <div>
-            <span>{{content.preview_title}}</span>
+          <div class="preview-small">
+            <span class="preview-small__title">{{content.preview_title}}</span>
             <img (click)="choseContent(content.uuid)" [src]="content.thumbnail" alt="" />
           </div>
 
@@ -32,7 +31,10 @@
       <h2>{{ category.key }}</h2>
       <swiper-container slides-per-view="5" space-between="10" loop="true" free-mode="true" grab-cursor="true">
         <swiper-slide *ngFor="let item of category.value">
-          <img (click)="choseContent(item.uuid)" [src]="item.thumbnail" alt="" />
+          <div class="preview-small">
+            <span class="preview-small__title">{{item.preview_title}}</span>
+            <img (click)="choseContent(item.uuid)" [src]="item.thumbnail" alt="" />
+          </div>
         </swiper-slide>
       </swiper-container>
     </article>

@@ -3,7 +3,7 @@
   padding: 12px 24px;
   box-sizing: border-box;
   border: none;
-  font-size: 18px;
+  font-size: clamp(1rem, calc(0.9643rem + 0.1786vw), 1.125rem);
   font-weight: 700;
   align-items: center;
   display: flex;
