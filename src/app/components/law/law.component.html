@@ -1,1 +1,6 @@
-  <router-outlet></router-outlet>
+  <header>
+    <a href="#"><img [src]="isMobile ? '/img/Symbol.svg' : '/img/Logo.svg'" alt="logo" /></a>
+    <button class="button" (click)="back()"><img src="img/arrow_back.svg" alt="back to previous site"></button>
+  </header>
+ 
+ <router-outlet></router-outlet>

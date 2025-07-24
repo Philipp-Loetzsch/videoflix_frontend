@@ -61,6 +61,10 @@
       >{{ cpwError }}</label
     >
 
-    <button class="button--primary" type="submit">Get Started</button>
+    <button [ngClass]="signinForm.invalid ? 'button--disabled' : 'button--primary'" type="submit">Get Started</button>
   </form>
+</div>
+
+<div *ngIf="signInErrorMsg != ''" class="error">
+  {{signInErrorMsg}}
 </div>

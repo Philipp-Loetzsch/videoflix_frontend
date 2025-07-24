@@ -8,6 +8,7 @@
   align-items: center;
   display: flex;
   cursor: pointer;
+  background-color: transparent;
   &--primary {
     @extend .button;
     background-color: var(--primary);

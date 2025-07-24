@@ -4,10 +4,13 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="flex">
       <input
+        id="email"
+        name="email"
         class="input--default"
         formControlName="email"
         type="email"
         placeholder="Email Address"
+        autocomplete="email"
       />
       <button class="button--primary" type="submit">
         Sign Up

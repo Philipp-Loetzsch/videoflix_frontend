@@ -21,7 +21,8 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class SignUpComponent {
   constructor(private router: Router, private errorService: ErrorsService, private authService: AuthService) {
-      this.currentEmail = this.authService.currentEmail }
+    this.currentEmail = this.authService.currentEmail
+  }
 
   showPw: boolean = false;
   showCpw: boolean = false;
@@ -29,8 +30,8 @@ export class SignUpComponent {
   emailError: string = '';
   pwError: string = '';
   cpwError: string = '';
-  currentEmail:string =''
-  signInErrorMsg:string =''
+  currentEmail: string = ''
+  signInErrorMsg: string = ''
 
   signinForm = new FormGroup(
     {
@@ -51,11 +52,11 @@ export class SignUpComponent {
     { validators: this.passwordsMatch }
   );
 
-   ngOnInit(): void {
- 
+  ngOnInit(): void {
+
     if (this.authService.currentEmail) {
       this.signinForm.patchValue({
-        email: this.authService.currentEmail 
+        email: this.authService.currentEmail
       });
     }
   }
@@ -80,13 +81,22 @@ export class SignUpComponent {
     this.submitted = true;
     if (this.signinForm.valid && this.signinForm.value) {
       const registrated = await this.authService.createUser(this.signinForm)
-      if (registrated) this.router.navigate(['/log_in'])
-      else this.signInErrorMsg = "Sign up failed, Please try again"
+      if (registrated === true) this.router.navigate(['/log_in']);
+      else if (registrated instanceof Error) {
+        this.signInErrorMsg = registrated.message;
+      } else if (registrated && !Array.isArray(registrated) && typeof registrated === 'object') {
+        const errors = registrated as Record<string, string[]>;
+        const firstKey = Object.keys(errors)[0];
+        this.signInErrorMsg = errors[firstKey][0];
+      } else {
+        this.signInErrorMsg = 'Unknown Error';
+      }
     } else this.errorMsg();
+
   }
 
   async errorMsg() {
-    this.emailError ='', this.pwError = '', this.cpwError = '';
+    this.emailError = '', this.pwError = '', this.cpwError = '';
     const emailErrors = this.email.errors;
     const pwErrors = this.password.errors;
     const pwValue = this.password.value;

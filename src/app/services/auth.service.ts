@@ -36,7 +36,7 @@ export class AuthService {
     }
   }
 
-  async createUser(signInForm: FormGroup): Promise<boolean> {
+  async createUser(signInForm: FormGroup): Promise<true | string[] | Error> {
     const REGISTARTION_URL = `${this.URL_API_BACKEND}register/`;
     const values = signInForm.value;
     try {
@@ -49,20 +49,13 @@ export class AuthService {
           repeated_password: values.confirmpassword,
         }),
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.message || `HTTP-Fehler! Status: ${response.status}`
-        );
-      }
-      let responseAsJson = (await response.json()) as boolean;
-      return responseAsJson;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(error.message);
-      } else {
-        throw new Error('Ein unbekannter Fehler ist aufgetreten.');
-      }
+      const data = await response.json();
+      if (response.ok) return true;
+      console.log(data);
+      
+      return data as string[];
+    } catch (err) {
+      return err as Error;
     }
   }
 
@@ -104,9 +97,7 @@ export class AuthService {
       });
 
       const data = await response.json();
-
       if (response.ok) return true;
-
       return data.detail as string[];
     } catch (err) {
       return err as Error;
