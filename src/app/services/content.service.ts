@@ -14,8 +14,8 @@ export class ContentService {
 
   // private URL_CONTENT = 'http://localhost:8000/api/content/';
   // private URL_REFRESH = 'http://localhost:8000/api/token/refresh/';
-  private URL_CONTENT = 'http://34.32.50.51:8000/api/content/';
-  private URL_REFRESH = 'http://34.32.50.51:8000/api/token/refresh/';
+  private URL_CONTENT = 'https://34.32.50.51:8000/api/content/';
+  private URL_REFRESH = 'https://34.32.50.51:8000/api/token/refresh/';
   public chosenVideoId: number = 0;
 
   async getContent(): Promise<Content[]> {

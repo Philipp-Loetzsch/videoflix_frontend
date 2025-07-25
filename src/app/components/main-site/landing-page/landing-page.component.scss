@@ -1,13 +1,24 @@
-form{
+form {
     position: relative;
 }
 
-input{
-    width: 360px;
+
+p, h1 {
+    text-align: center;
 }
 
-.flex{
+input {
+   width: clamp(290px, 50vw, 320px);
+}
+
+.flex {
+
+
     display: flex;
     gap: 1rem;
-}
 
+    @media screen and (max-width: 786px) {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

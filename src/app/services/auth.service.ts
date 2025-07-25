@@ -8,7 +8,7 @@ export class AuthService {
   constructor() { }
 
   // private URL_API_BACKEND: string = 'http://localhost:8000/api/';
-  private URL_API_BACKEND: string = 'http://34.32.50.51:8000/api/';
+  private URL_API_BACKEND: string = 'https://34.32.50.51:8000/api/';
 
   public currentEmail: string = '';
 

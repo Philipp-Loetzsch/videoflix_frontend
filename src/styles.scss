@@ -16,7 +16,7 @@ $max-mobile-width: 1025px;
     }
   }
   h1 {
-    font-size: 48px;
+    font-size: clamp(1.5rem, calc(1.0714rem + 2.1429vw), 3rem);;
     margin: 0;
   }
 }
@@ -109,8 +109,8 @@ body {
 }
 
 app-videoplayer{
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: 100vhd;
+  max-height: 100vhd;
   width: 100vw;
   display: flex;
 }
