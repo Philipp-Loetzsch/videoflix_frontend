@@ -35,7 +35,8 @@ export class ResetPasswordComponent {
   cpwError: string = '';
   currentEmail: string = '';
   signInErrorMsg: string = '';
-  token: string =""
+  // token: string =""
+  // uidb64:string =""
   success:string =""
 
   resetForm = new FormGroup(
@@ -69,8 +70,9 @@ export class ResetPasswordComponent {
   async onSubmit() {
     this.submitted = true;
     if (this.resetForm.valid && this.resetForm.value) {
-      this.token = this.route.snapshot.paramMap.get('token') || '';
-      const answer = await this.authService.resetPassword(this.resetForm, this.token);
+      const uidb64 = this.route.snapshot.paramMap.get('uidb64') || '';
+      const token = this.route.snapshot.paramMap.get('token') || '';
+      const answer = await this.authService.resetPassword(this.resetForm, uidb64, token);
       this.success = answer
       this.resetForm.reset();
     } 

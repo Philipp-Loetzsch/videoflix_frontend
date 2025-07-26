@@ -20,7 +20,7 @@ export const routes: Routes = [
       { path: 'log_in', component: LogInComponent},
       { path: 'sign_up', component: SignUpComponent },
       { path: 'forgot_password', component: ForgotPasswordComponent},
-      { path: 'reset_password/:token', component: ResetPasswordComponent},
+      { path: 'reset_password/:uidb64/:token', component: ResetPasswordComponent},
 
 
     ]
@@ -34,7 +34,7 @@ export const routes: Routes = [
         {path:"legal_notice", component: LegalNoticeComponent},
     ]
   },
-  {path: 'activate/:token', component: ActivateAccountComponent},
+  {path: 'activate/:uidb64/:token', component: ActivateAccountComponent},
   {path:'**', component: Page404Component}
 
 ];

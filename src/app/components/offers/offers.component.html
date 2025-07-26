@@ -1,8 +1,8 @@
 <div class="plattform">
   <header>
     <a href="#"><img src="/img/Symbol.svg" alt="logo" /></a>
-    <button class="button--primary" [routerLink]="['/log_in']">
-      <img src="/img/logout.svg" alt="" /> Log out
+    <button class="button--primary" (click)="logOut()">
+      <img src="/img/logout.svg" alt=""  /> Log out
     </button>
   </header>
   <section class="preview">

@@ -17,12 +17,14 @@ export class ActivateAccountComponent {
     private router: Router,
   ) {}
   isMobile: boolean = false;
+  uidb64: string = '';
   token: string = '';
   errorMsg: string = ''
 
   ngOnInit(): void {
+    this.uidb64 = this.route.snapshot.paramMap.get('uidb64') || '';
     this.token = this.route.snapshot.paramMap.get('token') || '';
-    if(this.token) this.activateAccount()
+    if(this.token && this.uidb64) this.activateAccount()
     else throw new Error ('invalid token')
   }
 
@@ -37,7 +39,7 @@ export class ActivateAccountComponent {
 
   async activateAccount() {
     try {
-      const isActivated = await this.authservice.activateAccount(this.token);
+      const isActivated = await this.authservice.activateAccount(this.uidb64,this.token);
        if(isActivated){
         setTimeout(() => {
           this.router.navigate(['/log_in'])

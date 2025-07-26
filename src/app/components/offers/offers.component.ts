@@ -5,6 +5,7 @@ import { Content } from '../../content';
 import { register } from 'swiper/element/bundle';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-offers',
@@ -20,7 +21,7 @@ export class OffersComponent {
   groupedByCategory: Record<string, Content[]> = {};
   chosenContent?: Content;
 
-  constructor(private contetService: ContentService, private router: Router) {}
+  constructor(private contetService: ContentService, private router: Router, private authService: AuthService) { }
 
   @ViewChild('videoPlayer') videoRef!: ElementRef<HTMLVideoElement>;
 
@@ -56,9 +57,13 @@ export class OffersComponent {
   }
 
   setVolume() {
-  if (this.videoRef?.nativeElement) {
-    this.videoRef.nativeElement.volume = 0.2;
+    if (this.videoRef?.nativeElement) {
+      this.videoRef.nativeElement.volume = 0.2;
+    }
   }
-}
-
+  async logOut(){
+    const result = this.authService.logOut()
+    console.log(result);
+    
+  } 
 }
