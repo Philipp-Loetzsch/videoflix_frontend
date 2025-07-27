@@ -138,3 +138,10 @@ swiper-container {
     pointer-events: none;
   }
 }
+
+.success{
+  top:0;
+  right: 0;
+  bottom: unset;
+  z-index: 9999;
+}

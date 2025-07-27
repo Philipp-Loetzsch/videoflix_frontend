@@ -20,7 +20,7 @@ export class OffersComponent {
   latestContent: Content[] = [];
   groupedByCategory: Record<string, Content[]> = {};
   chosenContent?: Content;
-
+  success: string = "hi"
   constructor(private contetService: ContentService, private router: Router, private authService: AuthService) { }
 
   @ViewChild('videoPlayer') videoRef!: ElementRef<HTMLVideoElement>;
@@ -61,9 +61,14 @@ export class OffersComponent {
       this.videoRef.nativeElement.volume = 0.2;
     }
   }
-  async logOut(){
-    const result = this.authService.logOut()
-    console.log(result);
-    
-  } 
+  async logOut() {
+    const result = await this.authService.logOut()
+    if (result) {
+      this.success = result
+      setTimeout(() => {
+        this.router.navigate(['/log_in'])
+      }, 1000);
+    }
+
+  }
 }

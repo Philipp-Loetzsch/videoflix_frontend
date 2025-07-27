@@ -101,7 +101,7 @@ export class AuthService {
       return err as Error;
     }
   }
-  async logOut(): Promise<string | Error> {
+  async logOut(): Promise<string> {
     const LOGIN_URL = `${this.URL_API_BACKEND}logout/`;
     try {
       const response = await fetch(LOGIN_URL, {
@@ -109,10 +109,10 @@ export class AuthService {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
-      const data = await response.json()
-      return data.detail
+      const data = await response.json()         
+      return data.detail as string
     } catch (err) {
-      return err as Error;
+      throw new Error('Unknown error')
     }
   }
   async forgotPassword(email: string) {
