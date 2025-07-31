@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,14 +8,13 @@ import { FormGroup } from '@angular/forms';
 export class AuthService {
   constructor() { }
 
-  private URL_API_BACKEND: string = 'http://localhost:8000/api/';
-  // private URL_API_BACKEND: string = 'https://34.32.50.51:8000/api/';
-  // private URL_API_BACKEND: string = 'https://v-backend.webdevelopment-loetzsch.de/api/';
+  private readonly apiUrl = environment.apiUrl;
+  private readonly endpoints = environment.apiEndpoints;
 
   public currentEmail: string = '';
 
   async checkEmail(email: string): Promise<boolean> {
-    const CHECK_URL = `${this.URL_API_BACKEND}check/`;
+    const CHECK_URL = `${this.apiUrl}${this.endpoints.check}`;
     try {
       let response = await fetch(CHECK_URL, {
         method: 'POST',
@@ -40,10 +40,10 @@ export class AuthService {
   }
 
   async createUser(signInForm: FormGroup): Promise<true | string[] | Error> {
-    const REGISTARTION_URL = `${this.URL_API_BACKEND}register/`;
+    const REGISTRATION_URL = `${this.apiUrl}${this.endpoints.register}`;
     const values = signInForm.value;
     try {
-      let response = await fetch(REGISTARTION_URL, {
+      let response = await fetch(REGISTRATION_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   async activateAccount(uidb64: string, token: string) {
-    const ACTIVATE_URL = `${this.URL_API_BACKEND}activate/${uidb64}/${token}/`;
+    const ACTIVATE_URL = `${this.apiUrl}${this.endpoints.activation}${uidb64}/${token}/`;
     try {
       let response = await fetch(ACTIVATE_URL, { method: 'GET' });
       if (!response.ok) {
@@ -85,7 +85,7 @@ export class AuthService {
 
   async logIn(logInForm: FormGroup): Promise<true | string[] | Error> {
     const { email, password } = logInForm.value;
-    const LOGIN_URL = `${this.URL_API_BACKEND}login/`;
+    const LOGIN_URL = `${this.apiUrl}${this.endpoints.login}`;
 
     try {
       const response = await fetch(LOGIN_URL, {
@@ -103,23 +103,23 @@ export class AuthService {
     }
   }
   async logOut(): Promise<string> {
-    const LOGIN_URL = `${this.URL_API_BACKEND}logout/`;
+    const LOGOUT_URL = `${this.apiUrl}${this.endpoints.logout}`;
     try {
-      const response = await fetch(LOGIN_URL, {
+      const response = await fetch(LOGOUT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
-      const data = await response.json()         
+      const data = await response.json()
       return data.detail as string
     } catch (err) {
       throw new Error('Unknown error')
     }
   }
   async forgotPassword(email: string) {
-    const FORGOTURL = `${this.URL_API_BACKEND}password_reset/`;
+    const FORGOT_URL = `${this.apiUrl}${this.endpoints.resetPassword}`;
     try {
-      let response = await fetch(FORGOTURL, {
+      let response = await fetch(FORGOT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -141,10 +141,10 @@ export class AuthService {
     }
   }
   async resetPassword(resetForm: FormGroup, uidb64: string, token: string): Promise<string> {
-    const RESETURL = `${this.URL_API_BACKEND}password_confirm/${uidb64}/${token}/`;
+    const RESET_URL = `${this.apiUrl}${this.endpoints.setPassword}${uidb64}/${token}/`;
     const { password, confirmpassword } = resetForm.value;
     try {
-      let response = await fetch(RESETURL, {
+      let response = await fetch(RESET_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

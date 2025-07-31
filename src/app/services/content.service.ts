@@ -2,7 +2,7 @@
 import { Router } from '@angular/router';
 import { Content } from './../content';
 import { Injectable } from '@angular/core';
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +12,8 @@ export class ContentService {
     private router: Router
   ) {}
 
-  private URL_CONTENT = 'http://localhost:8000/api/video/';
-  private URL_REFRESH = 'http://localhost:8000/api/token/refresh/';
-  // private URL_CONTENT = 'https://34.32.50.51:8000/api/content/';
-  // private URL_REFRESH = 'https://34.32.50.51:8000/api/token/refresh/';
-    // private URL_CONTENT = 'https://v-backend.webdevelopment-loetzsch.de/api/video/';
-  // private URL_REFRESH = 'https://v-backend.webdevelopment-loetzsch.de/api/token/refresh/';
+  private readonly URL_CONTENT = `${environment.apiUrl}${environment.apiEndpoints.video}`;
+  private readonly URL_REFRESH = `${environment.apiUrl}${environment.apiEndpoints.refresh}`;
   public chosenVideoId: number = 0;
 
   async getContent(): Promise<Content[]> {
