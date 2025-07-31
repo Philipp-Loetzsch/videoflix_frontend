@@ -7,8 +7,9 @@ import { FormGroup } from '@angular/forms';
 export class AuthService {
   constructor() { }
 
-  private URL_API_BACKEND: string = 'http://localhost:8000/api/';
+  // private URL_API_BACKEND: string = 'http://localhost:8000/api/';
   // private URL_API_BACKEND: string = 'https://34.32.50.51:8000/api/';
+  private URL_API_BACKEND: string = 'https://v-backend.webdevelopment-loetzsch.de/api/';
 
   public currentEmail: string = '';
 

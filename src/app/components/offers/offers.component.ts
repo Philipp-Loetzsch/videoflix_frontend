@@ -20,7 +20,7 @@ export class OffersComponent {
   latestContent: Content[] = [];
   groupedByCategory: Record<string, Content[]> = {};
   chosenContent?: Content;
-  success: string = "hi"
+  success: string = ""
   constructor(private contetService: ContentService, private router: Router, private authService: AuthService) { }
 
   @ViewChild('videoPlayer') videoRef!: ElementRef<HTMLVideoElement>;
