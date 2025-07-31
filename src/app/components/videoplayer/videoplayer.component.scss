@@ -1,8 +1,46 @@
-.video-js {
+:host {
+  display: block;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: black;
+}
+
+.player-wrapper {
   width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
-.video-js{
-  height: 100vh !important;
+.video-js {
+  width: 100% !important;
+  height: 100vh !important; /* Reduzierte Höhe */
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
+.video-js video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 100dvh !important; /* Berücksichtigung der Controlbar */
+}
+
+.video-js .vjs-control-bar {
+  position: absolute !important;
+  bottom: 0 !important;
+  height: 40px !important;
+}
+
+button {
+  transition: opacity 0.3s ease;
+  position: absolute;
+  top: 0  ;
+  z-index: 999;
+}
