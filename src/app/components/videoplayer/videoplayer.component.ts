@@ -20,6 +20,8 @@ type VideoJsPlayerWithPlugin = Player & {
 })
 export class VideoplayerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('target', { static: true }) target!: ElementRef<HTMLVideoElement>;
+  @ViewChild('button', { static: true }) button!: ElementRef<HTMLButtonElement>;
+
   currentContent?: Content | null;
   player!: VideoJsPlayerWithPlugin;
   timeout: any;
@@ -27,8 +29,6 @@ export class VideoplayerComponent implements AfterViewInit, OnDestroy {
   constructor(private contentService: ContentService, private location: Location) { }
 
   ngOnInit() {
-
-
     this.startHideTimer();
     document.addEventListener('mousemove', () => this.resetHeaderTimer());
   }
@@ -44,6 +44,12 @@ export class VideoplayerComponent implements AfterViewInit, OnDestroy {
       fluid: false,
       responsive: false,
       fill: false,
+      html5: {
+        hls: {
+          enableLowInitialPlaylist: true,
+          smoothQualityChange: true,
+        }
+      },
       sources: [{
         src: this.currentContent.hls_playlist,
         type: 'application/x-mpegURL',
@@ -51,9 +57,15 @@ export class VideoplayerComponent implements AfterViewInit, OnDestroy {
     }) as VideoJsPlayerWithPlugin;
 
     this.player.ready(() => {
-      this.player.hlsQualitySelector?.({
-        displayCurrentQuality: true,
-      });
+      try {
+        if (typeof this.player.hlsQualitySelector === 'function') {
+          this.player.hlsQualitySelector({
+            displayCurrentQuality: true
+          });
+        }
+      } catch (e) {
+        console.warn('HLS Quality Selector plugin initialization failed:', e);
+      }
     });
   }
 
@@ -75,12 +87,14 @@ export class VideoplayerComponent implements AfterViewInit, OnDestroy {
   }
 
   hideHeader() {
-    const header = document.getElementById('header');
-    if (header) header.style.opacity = '0';
+    if (this.button?.nativeElement) {
+      this.button.nativeElement.style.opacity = '0';
+    }
   }
 
   showHeader() {
-    const header = document.getElementById('header');
-    if (header) header.style.opacity = '1';
+    if (this.button?.nativeElement) {
+      this.button.nativeElement.style.opacity = '1';
+    }
   }
 }
