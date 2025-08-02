@@ -1,7 +1,7 @@
 
 import { Router } from '@angular/router';
 import { Content } from './../content';
-import { Injectable } from '@angular/core';
+import { Injectable, numberAttribute } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,7 +10,9 @@ import { environment } from '../../environments/environment';
 export class ContentService {
   constructor(
     private router: Router
-  ) {}
+  ) {
+
+  }
 
   private readonly URL_CONTENT = `${environment.apiUrl}${environment.apiEndpoints.video}`;
   private readonly URL_REFRESH = `${environment.apiUrl}${environment.apiEndpoints.refresh}`;
@@ -42,6 +44,9 @@ export class ContentService {
   }
 
   async getSingleContent(): Promise<Content | null> {
+    debugger
+    const id = localStorage.getItem('videoId')
+    if (id) this.chosenVideoId = +id
     try {
       const response = await fetch(this.URL_CONTENT + this.chosenVideoId, {
         method: 'GET',

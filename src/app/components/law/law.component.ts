@@ -16,8 +16,6 @@ export class LawComponent {
   isMobile: boolean = false
 
   back() {
-    console.log('hi');
-    
     this.location.back();
   }
 }

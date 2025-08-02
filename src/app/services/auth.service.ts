@@ -6,12 +6,15 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() { }
+  constructor() { 
+    
+  }
 
   private readonly apiUrl = environment.apiUrl;
   private readonly endpoints = environment.apiEndpoints;
 
   public currentEmail: string = '';
+
 
   async checkEmail(email: string): Promise<boolean> {
     const CHECK_URL = `${this.apiUrl}${this.endpoints.check}`;

@@ -52,6 +52,7 @@ export class OffersComponent {
   openPlayer(id: number | undefined) {
     if (id) {
       this.contetService.chosenVideoId = id;
+      localStorage.setItem('videoId',`${id}`)
       this.router.navigate(['/player']);
     }
   }
