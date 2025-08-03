@@ -32,6 +32,7 @@ export class SignUpComponent {
   cpwError: string = '';
   currentEmail: string = ''
   signInErrorMsg: string = ''
+  success: string = ""
 
   signinForm = new FormGroup(
     {
@@ -81,7 +82,10 @@ export class SignUpComponent {
     this.submitted = true;
     if (this.signinForm.valid && this.signinForm.value) {
       const registrated = await this.authService.createUser(this.signinForm)
-      if (registrated === true) this.router.navigate(['/log_in']);
+      if (registrated === true) { 
+        this.success = `Sign in successful. Please check your emails`
+        setTimeout(() => this.router.navigate(['/log_in']), 4000);
+      }
       else if (registrated instanceof Error) {
         this.signInErrorMsg = registrated.message;
       } else if (registrated && !Array.isArray(registrated) && typeof registrated === 'object') {

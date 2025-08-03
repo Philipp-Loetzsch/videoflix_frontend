@@ -6,8 +6,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() { 
-    
+  constructor() {
+
   }
 
   private readonly apiUrl = environment.apiUrl;

@@ -15,7 +15,7 @@ export class ActivateAccountComponent {
     private authservice: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
   isMobile: boolean = false;
   uidb64: string = '';
   token: string = '';
@@ -24,8 +24,8 @@ export class ActivateAccountComponent {
   ngOnInit(): void {
     this.uidb64 = this.route.snapshot.paramMap.get('uidb64') || '';
     this.token = this.route.snapshot.paramMap.get('token') || '';
-    if(this.token && this.uidb64) this.activateAccount()
-    else throw new Error ('invalid token')
+    if (this.token && this.uidb64) this.activateAccount()
+    else throw new Error('invalid token')
   }
 
   @HostListener('window:resize')
@@ -39,15 +39,15 @@ export class ActivateAccountComponent {
 
   async activateAccount() {
     try {
-      const isActivated = await this.authservice.activateAccount(this.uidb64,this.token);
-       if(isActivated){
+      const isActivated = await this.authservice.activateAccount(this.uidb64, this.token);
+      if (isActivated) {
         setTimeout(() => {
           this.router.navigate(['/log_in'])
         }, 2000);
-       }
+      }
     } catch (error) {
       this.errorMsg = 'Oops your account could not activate'
     }
-   
+
   }
 }

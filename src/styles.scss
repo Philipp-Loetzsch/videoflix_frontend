@@ -108,12 +108,12 @@ body {
   }
 }
 
-// app-videoplayer{
-//   min-height: 100dvh;
-//   max-height: 100dvh;
-//   width: 100vw;
-//   display: flex;
-// }
+app-videoplayer{
+  min-height: 100dvh;
+  max-height: 100dvh;
+  width: 100vw;
+  display: flex;
+}
 
 app-landing-page,
 app-log-in,
@@ -136,6 +136,7 @@ footer {
   width: 100%;
   display: flex;
   max-width: var(--max-screen-witdth);
+  z-index: 999;
   .d-none{
     display: none;
   }
@@ -146,7 +147,7 @@ header {
   justify-content: space-between;
   padding: 0.625rem 6rem;
   box-sizing: border-box;
-  z-index: 9;
+  z-index: 999;
  @media screen and (max-width: $max-mobile-width) {
     padding: 10px 10px;
     img{
@@ -159,7 +160,7 @@ footer {
   justify-content: center;
   padding-bottom: 4rem;
   gap: 2rem;
-  z-index: 9;
+  z-index: 999;
   max-width: var(--max-screen-witdth);
    @media screen and (max-width: $max-mobile-width) {
     padding-bottom:0.5rem ;

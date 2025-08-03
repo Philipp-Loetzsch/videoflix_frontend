@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, viewChild, ViewChild } from '@angular/core';
 import { ContentService } from '../../services/content.service';
 import { CommonModule } from '@angular/common';
 import { Content } from '../../content';
@@ -21,12 +21,17 @@ export class OffersComponent {
   groupedByCategory: Record<string, Content[]> = {};
   chosenContent?: Content;
   success: string = ""
+  slides: number = 5
+  isActive:boolean = false
   constructor(private contetService: ContentService, private router: Router, private authService: AuthService) { }
 
   @ViewChild('videoPlayer') videoRef!: ElementRef<HTMLVideoElement>;
+  @ViewChild('preview') preview!: ElementRef<HTMLElement>;
 
 
   async ngOnInit(): Promise<void> {
+    this.checkWidth();
+    window.addEventListener('resize', this.checkWidth.bind(this));
     register();
     const data = await this.contetService.getContent();
     this.currentContent = data;
@@ -47,12 +52,14 @@ export class OffersComponent {
 
   choseContent(uuid: string) {
     this.chosenContent = this.currentContent.find((item) => item.uuid === uuid);
+    this.isActive = !this.isActive;
+
   }
 
   openPlayer(id: number | undefined) {
     if (id) {
       this.contetService.chosenVideoId = id;
-      localStorage.setItem('videoId',`${id}`)
+      localStorage.setItem('videoId', `${id}`)
       this.router.navigate(['/player']);
     }
   }
@@ -72,4 +79,8 @@ export class OffersComponent {
     }
 
   }
+  checkWidth() {
+    this.slides = window.innerWidth < 786 ? 2 : 5;
+  }
+
 }

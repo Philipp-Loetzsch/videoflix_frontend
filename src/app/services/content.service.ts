@@ -27,7 +27,6 @@ export class ContentService {
       });
 
       if (!refresh.ok) this.router.navigate(['/log_in']);
-
       const response = await fetch(this.URL_CONTENT, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -44,7 +43,6 @@ export class ContentService {
   }
 
   async getSingleContent(): Promise<Content | null> {
-    debugger
     const id = localStorage.getItem('videoId')
     if (id) this.chosenVideoId = +id
     try {

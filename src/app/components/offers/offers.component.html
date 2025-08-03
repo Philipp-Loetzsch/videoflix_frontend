@@ -5,18 +5,19 @@
       <img src="/img/logout.svg" alt=""  /> Log out
     </button>
   </header>
-  <section class="preview">
+  <section #preview class="preview" [class.active]="isActive">
+    <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop (loadedmetadata)="setVolume()"></video>
     <h1>{{ chosenContent?.title }}</h1>
     <span>{{ chosenContent?.description }}</span>
     <button class="button--primary" (click)="openPlayer(chosenContent?.id)">
       Play
     </button>
-    <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop (loadedmetadata)="setVolume()"></video>
+    <!-- <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop (loadedmetadata)="setVolume()"></video> -->
   </section>
   <main>
     <article>
       <h2>New on Videoflix</h2>
-      <swiper-container slides-per-view="5" space-between="10" loop="true" free-mode="true" grab-cursor="true">
+      <swiper-container [attr.slides-per-view]="slides" space-between="10" loop="true" free-mode="true" grab-cursor="true">
         <swiper-slide *ngFor="let content of latestContent">
           <div class="preview-small">
             <span class="preview-small__title">{{content.preview_title}}</span>
@@ -29,7 +30,7 @@
 
     <article class="bg-black" *ngFor="let category of groupedByCategory | keyvalue">
       <h2>{{ category.key }}</h2>
-      <swiper-container slides-per-view="5" space-between="10" loop="true" free-mode="true" grab-cursor="true">
+      <swiper-container [attr.slides-per-view]="slides" space-between="10" loop="true" free-mode="true" grab-cursor="true">
         <swiper-slide *ngFor="let item of category.value">
           <div class="preview-small">
             <span class="preview-small__title">{{item.preview_title}}</span>
