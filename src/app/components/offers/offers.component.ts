@@ -80,7 +80,7 @@ export class OffersComponent {
 
   }
   checkWidth() {
-    this.slides = window.innerWidth < 786 ? 2 : 5;
+    this.slides = window.innerWidth < 786 ? 2.1 : 5;
   }
 
 }
