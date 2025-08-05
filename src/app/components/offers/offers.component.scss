@@ -37,8 +37,9 @@ h2 {
 
   span {
     max-width: 50%;
-      @media screen and (max-width:786px) {
-       max-width: 100%;
+
+    @media screen and (max-width:786px) {
+      max-width: 100%;
     }
   }
 
@@ -62,6 +63,8 @@ h2 {
     margin: 0;
     background-color: black;
     justify-content: start;
+    min-height: 100dvh;
+    max-height: 100dvh;
 
     video {
       position: relative;
@@ -69,6 +72,7 @@ h2 {
       opacity: 1;
       height: auto;
     }
+
   }
 }
 
