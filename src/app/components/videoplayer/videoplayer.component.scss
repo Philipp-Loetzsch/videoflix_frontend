@@ -1,4 +1,3 @@
-
 [class*='vjs_video_']:not(.vjs-hidden) {
   width: 100vw !important;
   height: 100vh !important;
@@ -21,7 +20,13 @@
 button {
   transition: opacity 0.3s ease;
   position: absolute;
-  top: 0  ;
+  top: 0;
   z-index: 999;
   opacity: 1;
+}
+
+.vjs-selected {
+  .vjs-menu-item-text {
+    color: black;
+  }
 }

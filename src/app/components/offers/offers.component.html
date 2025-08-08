@@ -2,7 +2,7 @@
   <header>
     <a href="#"><img src="/img/Symbol.svg" alt="logo" /></a>
     <button class="button--primary" (click)="logOut()">
-      <img src="/img/logout.svg" alt=""  /> Log out
+      <img src="/img/logout.svg" alt="" /> Log out
     </button>
   </header>
   <section #preview class="preview" [class.active]="isActive">
@@ -12,12 +12,12 @@
     <button class="button--primary" (click)="openPlayer(chosenContent?.id)">
       Play
     </button>
-    <!-- <video #videoPlayer src="{{ chosenContent?.preview }}" autoplay loop (loadedmetadata)="setVolume()"></video> -->
   </section>
   <main>
     <article>
       <h2>New on Videoflix</h2>
-      <swiper-container [attr.slides-per-view]="slides" space-between="10" loop="true" free-mode="true" grab-cursor="true">
+      <swiper-container [attr.slides-per-view]="slides" space-between="10" loop="true" free-mode="true"
+        grab-cursor="true">
         <swiper-slide *ngFor="let content of latestContent">
           <div class="preview-small">
             <span class="preview-small__title">{{content.preview_title}}</span>
@@ -30,7 +30,8 @@
 
     <article class="bg-black" *ngFor="let category of groupedByCategory | keyvalue">
       <h2>{{ category.key }}</h2>
-      <swiper-container [attr.slides-per-view]="slides" space-between="10" loop="true" free-mode="true" grab-cursor="true">
+      <swiper-container [attr.slides-per-view]="slides" space-between="10" loop="true" free-mode="true"
+        grab-cursor="true">
         <swiper-slide *ngFor="let item of category.value">
           <div class="preview-small">
             <span class="preview-small__title">{{item.preview_title}}</span>
@@ -41,8 +42,8 @@
     </article>
   </main>
   <footer>
-    <a href="">Impressum</a>
-    <a href="">Datenschutz</a>
+    <a [routerLink]="['law/legal_notice']">legal notice</a>
+    <a [routerLink]="['law']">privacy policy</a>
   </footer>
 </div>
 
