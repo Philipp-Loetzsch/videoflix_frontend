@@ -1,27 +1,98 @@
-# VideoflixFrontend
+# Videoflix Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+Eine Video-Streaming-Plattform gebaut mit Angular.
 
-## Development server
+## 🚀 Schnellstart
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Voraussetzungen
 
-## Code scaffolding
+- Node.js (Version 18 oder höher)
+- npm (kommt mit Node.js)
+- Ein Terminal/Kommandozeile
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Installation
 
-## Build
+1. **Repository klonen**
+   ```bash
+   git clone https://github.com/Philipp-Loetzsch/videoflix_frontend.git
+   cd videoflix_frontend
+   ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. **Abhängigkeiten installieren**
+   ```bash
+   npm install
+   ```
 
-## Running unit tests
+3. **Entwicklungsserver starten**
+   ```bash
+   npm start
+   ```
+   Die Anwendung ist jetzt unter `http://localhost:4200` verfügbar.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🔧 Fehlersuche
 
-## Running end-to-end tests
+### "Module not found" Fehler
+- Führe `npm install` erneut aus
+- Lösche den `node_modules` Ordner und führe `npm install` aus
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### CORS Fehler
+- Stelle sicher, dass das Backend läuft
+- Überprüfe die Backend-URL in der `environment.ts`
 
-## Further help
+### Video Playback Fehler
+- Stelle sicher, dass die HLS-Streams über HTTPS verfügbar sind
+- Prüfe die Netzwerk-Registerkarte im Browser auf Mixed-Content-Warnungen
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📝 Wichtige Befehle
+
+```bash
+# Entwicklungsserver starten
+npm start
+
+# Production Build erstellen
+npm run build
+
+# Tests ausführen
+npm test
+
+# Linting durchführen
+npm run lint
+```
+
+## 🏗 Projektstruktur
+
+```
+src/
+├── app/
+│   ├── components/     # UI Komponenten
+│   ├── services/      # Angular Services
+│   └── content.ts     # Datenmodelle
+├── assets/           # Statische Dateien
+└── environments/     # Umgebungskonfigurationen
+```
+
+## 🔒 Umgebungsvariablen
+
+Wichtige Variablen in `src/environments/environment.ts`:
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'https://deine-backend-url.de',
+  apiEndpoints: {
+    // API Endpunkte
+  }
+};
+```
+
+## 📚 Zusätzliche Informationen
+
+- Die Anwendung verwendet Video.js für die Video-Wiedergabe
+- HLS-Streaming wird für adaptive Bitrate unterstützt
+- Das Backend muss separat gestartet werden
+
+## 💡 Tipps
+
+- Verwende Chrome oder Firefox für die beste Entwicklungserfahrung
+- Die Developer Tools (F12) sind hilfreich für Debugging
+- Bei Problemen erst prüfen, ob das Backend erreichbar ist
