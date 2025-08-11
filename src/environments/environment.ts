@@ -9,8 +9,8 @@ export const environment = {
     login: '/login/',
     logout: '/logout/',
     activation: '/activate/',
-    resetPassword: '/password/reset/',
-    setPassword: '/password/confirm/',
+    resetPassword: '/password_reset/',
+    setPassword: '/password_confirm/',
     deleteUser: '/users/delete/'
   }
 };
